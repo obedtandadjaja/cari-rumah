@@ -1,0 +1,22 @@
+{
+  "name": "cari-rumah",
+  "version": "1.0.0",
+  "description": "Cari Rumah backend in Node.js, GraphQL, and PostgreSQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obedtandadjaja/cari-rumah.git"
+  },
+  "author": "Obed Tandadjaja",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/obedtandadjaja/cari-rumah/issues"
+  },
+  "homepage": "https://github.com/obedtandadjaja/cari-rumah#readme",
+  "devDependencies": {
+    "babel-eslint": "^10.0.2"
+  }
+}
