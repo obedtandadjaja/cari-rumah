@@ -1,12 +1,13 @@
+import db from './../pg-adaptor.js'
 import users from './data'
 
 class User {
   static all() {
-    return users
+    return db.any(`select * from users`).then(res => res).catch(err => err)
   }
 
   static findOne(id) {
-    return users.filter(user => user.id == id)[0]
+    return db.one(`select * from users where id=$1`, [id]).then(res => res).catch(err => err)
   }
 }
 
