@@ -1,0 +1,7 @@
+- change node-pg-migrate to node-db-migrate
+- add functionalities to listings
+- test addresses and listings
+- add Google Map API to get long and lat and timezone
+- add credentials to user and do authentication
+  - add middleware to graphql endpoints to check for authentication
+  - check for authorization
