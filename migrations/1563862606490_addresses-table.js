@@ -7,6 +7,7 @@ exports.up = (pgm) => {
     address_2: { type: `varchar(255)` },
     city: { type: `varchar(100)` },
     region: { type: `varchar(100)` },
+    zip_code: { type: `varchar(20)` },
     country: { type: `varchar(100)` },
     longitude: { type: `decimal` },
     latitude: { type: `decimal` },

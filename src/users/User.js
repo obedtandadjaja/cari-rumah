@@ -1,5 +1,4 @@
 import db from './../pg-adaptor.js'
-import users from './data'
 
 class User {
   static all() {
