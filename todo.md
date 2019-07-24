@@ -1,4 +1,3 @@
-- change node-pg-migrate to node-db-migrate
 - add functionalities to listings
 - test addresses and listings
 - add Google Map API to get long and lat and timezone
