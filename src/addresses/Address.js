@@ -1,7 +1,7 @@
 import db from './../pg-adaptor.js'
 
 class Address {
-  static findOne(id) {
+  static findById(id) {
     return db.one(`select * from addresses where id=$1`, [id]).then(res => res).catch(err => err)
   }
 

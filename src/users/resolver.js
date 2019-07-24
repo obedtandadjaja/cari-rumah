@@ -1,12 +1,8 @@
 import User from './User'
 
 export default {
-  // Query
-  user: ({ id }) => User.findOne(id),
+  user: ({ id }) => User.findById(id),
   users: () => User.all(),
-
-  // Mutation
   createUser: () => {},
-
   User: {},
 }

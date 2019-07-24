@@ -14,9 +14,9 @@ export default `
 
   type Query {
     address(id: ID!): Address
-    addressByRegion(region: String): [Address]
-    addressByCity(city: String): [Address]
-    addressByZipCode(zip_code: String): [Address]
+    addressesByRegion(region: String): [Address]
+    addressesByCity(city: String): [Address]
+    addressesByZipCode(zip_code: String): [Address]
     addressByLongLat(long: Float, lat: Float): Address
   }
 
