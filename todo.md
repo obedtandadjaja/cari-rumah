@@ -1,4 +1,3 @@
-- add functionalities to listings
 - test addresses and listings
 - add Google Map API to get long and lat and timezone
 - add credentials to user and do authentication
