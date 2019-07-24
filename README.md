@@ -1,6 +1,11 @@
 # cari-rumah
 Node.js, Postgres, GraphQL backend web app
 
-## Quickstart Reference
+## Running the app
 
-https://medium.com/@james_mensch/node-js-graphql-postgresql-quickstart-91ffa4374663
+```
+$ npm install
+$ node index.js
+```
+
+`index.js` is the entry point of the app. All it does is it sets the babel preset and the rest of the logic can be tracked down from `server.js`
