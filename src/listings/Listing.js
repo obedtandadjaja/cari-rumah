@@ -74,7 +74,7 @@ class Listing {
     residential_type,
     type
   ) {
-    return db.none(
+    db.none(
       `update addresses set
        user_id = $1, address_id = $2, num_bedrooms = $3, num_bathrooms = $4, num_parking_lots = $5, num_stories = $6,
        lot_size_sqft = $7, year_built = $8, price_cents = $9, price_currency = $10, description = $11, display_picture_url = $12,
@@ -98,5 +98,7 @@ class Listing {
         id
       ]
     ).then(res => res).cathc(err => err)
+
+    return true
   }
 }

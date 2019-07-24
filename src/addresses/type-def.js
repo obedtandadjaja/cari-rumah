@@ -28,7 +28,7 @@ export default `
       region: String!,
       zip_code: String,
       country: String!
-    )
+    ): ID
     updateAddress(
       id: ID!,
       address_1: String,
@@ -37,6 +37,6 @@ export default `
       region: String,
       zip_code: String,
       country: String
-    )
+    ): Boolean
   }
 `
