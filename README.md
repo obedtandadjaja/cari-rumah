@@ -17,3 +17,4 @@ Express GraphQL Server Now Running On localhost:4000/graphql
 ```
 
 Go to the link to access `GraphiQL`
+
