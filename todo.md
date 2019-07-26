@@ -3,3 +3,4 @@
 - add credentials to user and do authentication
   - add middleware to graphql endpoints to check for authentication
   - check for authorization
+- Full text search?? probably can get city, state, region from Google Maps API
