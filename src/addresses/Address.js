@@ -37,7 +37,7 @@ class Address {
       `insert into addresses (address_1, address_2, city, region, zip_code, country)
        values ($1, $2, $3, $4, $5, $6) returning id`,
       [address_1, address_2, city, region, zip_code, country]
-    ).then(res => res).cathc(err => err)
+    ).then(res => res).catch(err => err)
   }
 
   static update(

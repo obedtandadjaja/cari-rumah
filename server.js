@@ -9,9 +9,9 @@ const schema = buildSchema(typeDefs)
 
 // Create an express server and a GraphQL endpoint
 const app = express()
-app.use('/graphql', expressGraphql({
+app.use(`/graphql`, expressGraphql({
   schema: schema,
   rootValue: resolvers,
   graphiql: true
 }))
-app.listen(4000, () => console.log('Express GraphQL Server Now Running On localhost:4000/graphql'))
+app.listen(4000, () => console.log(`Express GraphQL Server Now Running On localhost:4000/graphql`))

@@ -1,10 +1,10 @@
 export default `
   type User {
     id: ID!
-    first_name: String
-    last_name: String
+    name: String
     email: String
     phone: String
+    notification_methods: [String]
   }
 
   type Query {
@@ -14,10 +14,10 @@ export default `
 
   type Mutation {
     createUser(
-      first_name: String!,
-      last_name: String!,
+      name: String!,
       email: String!,
-      phone: String!
+      phone: String!,
+      notification_methods: [String]!
     ): User
   }
 `
