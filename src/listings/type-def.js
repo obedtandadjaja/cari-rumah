@@ -40,7 +40,7 @@ export default `
       display_picture_url: String,
       residential_type: String,
       type: String
-    ): ID
+    ): Listing
     updateListing(
       id: ID!
       user_id: ID,

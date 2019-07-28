@@ -61,3 +61,5 @@ class Address {
     return true
   }
 }
+
+export default Address

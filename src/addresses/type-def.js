@@ -28,7 +28,7 @@ export default `
       region: String!,
       zip_code: String,
       country: String!
-    ): ID
+    ): Address
     updateAddress(
       id: ID!,
       address_1: String,
