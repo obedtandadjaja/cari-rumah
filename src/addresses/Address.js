@@ -56,7 +56,7 @@ class Address {
        region = $4, zip_code = $5, country = $6
        where id = $7`,
       [address_1, address_2, city, region, zip_code, country, id]
-    ).then(res => res).cathc(err => err)
+    ).then(res => res).catch(err => err)
 
     return true
   }
