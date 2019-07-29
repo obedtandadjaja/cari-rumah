@@ -4,3 +4,4 @@
   - add middleware to graphql endpoints to check for authentication
   - check for authorization
 - Full text search?? probably can get city, state, region from Google Maps API
+  - research type ahead searches for address/region/city/country/zip code
