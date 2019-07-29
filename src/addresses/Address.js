@@ -52,8 +52,12 @@ class Address {
     // add Google's Geo API here to generate long, lat, and timezone
     db.none(
       `update addresses set
-       address_1 = $1, address_2 = $2, city: $3,
-       region = $4, zip_code = $5, country = $6
+       address_1 = coalesce($1, address_1),
+       address_2 = coalesce($2, address_2),
+       city = coalesce($3, city),
+       region = coalesce($4, region),
+       zip_code = coalesce($5, zip_code),
+       country = coalesce($6, country)
        where id = $7`,
       [address_1, address_2, city, region, zip_code, country, id]
     ).then(res => res).catch(err => err)
