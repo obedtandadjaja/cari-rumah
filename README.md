@@ -5,6 +5,7 @@ Node.js, Postgres, GraphQL backend web app
 
 ```
 $ npm install
+$ db-migrate up
 $ node index.js
 ```
 
