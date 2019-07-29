@@ -76,10 +76,21 @@ class Listing {
   ) {
     db.none(
       `update addresses set
-       user_id = $1, address_id = $2, num_bedrooms = $3, num_bathrooms = $4, num_parking_lots = $5, num_stories = $6,
-       lot_size_sqft = $7, year_built = $8, price_cents = $9, price_currency = $10, description = $11, display_picture_url = $12,
-       residential_type = $13, type = $14
-       where id = $15`,
+       user_id = coalesce($1, user_id),
+       address_id = coalesce($2, address_id),
+       num_bedrooms = coalesce($3, num_bedrooms),
+       num_bathrooms = coalesce($4, num_bathrooms),
+       num_parking_lots = coalesce($5, num_parking_lots),
+       num_stories = coalesce($6, num_stories),
+       lot_size_sqft = coalesce($7, lot_size_sqft),
+       year_built = coalesce($8, year_built),
+       price_cents = coalesce($9, price_cents),
+       price_currency = coalesce($10, price_currency),
+       description = coalesce($11, description),
+       display_picture_url = coalesce($12, display_picture_url),
+       residential_type = coalesce($13, residential_type),
+       type = coalesce($14, type)
+       where id = $id`,
       [
         user_id,
         address_id,
