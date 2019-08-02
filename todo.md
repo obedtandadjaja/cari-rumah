@@ -5,3 +5,24 @@
   - check for authorization
 - Full text search?? probably can get city, state, region from Google Maps API
   - research type ahead searches for address/region/city/country/zip code
+    - Google offers type ahead searches: https://developers.google.com/places/web-service/autocomplete
+      - Pros:
+        - Plug and play programming - very fast
+      - Cons:
+        - Growing more reliant to Google's codebase
+        - It is not specific enough / geared towards searches only in the indo region
+        - Expensive since after a certain number of requests we need to pay Google, but maybe that's ok since we are going to use them to calculate timezone for long and lat anyway
+    - Open source geocoder: https://github.com/pelias/pelias/ https://pelias.io
+      - Pros:
+        - Free if we maintain it ourselves, but at the cost of spinning up an elasticSearch instance
+        - Not relying on Google for everything
+        - Configurable to fit our use case
+      - Cons:
+        - Not plug and play and may need a lot of configuration to fit our needs - over engineering
+    - Algolia: https://community.algolia.com/places/examples.html (need compare pricing against Google's)
+      - Pros:
+        - Plug and play programming; just an alternative to Google
+      - Cons:
+        - Expensive in the long run just like Google
+        - Might be better to keep everything under Google if we are going to use their Maps APIs anyway
+
