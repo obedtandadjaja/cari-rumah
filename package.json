@@ -24,6 +24,7 @@
     "babel-eslint": "^10.0.2"
   },
   "dependencies": {
+    "@google/maps": "^0.5.5",
     "db-migrate": "^0.11.6",
     "db-migrate-pg": "^1.0.0",
     "dotenv": "^8.0.0",
@@ -32,6 +33,7 @@
     "graphql": "^14.4.2",
     "merge-graphql-schemas": "^1.5.8",
     "node-db-migrate": "^1.0.1",
-    "pg-promise": "^8.7.5"
+    "pg-promise": "^8.7.5",
+    "promise": "^8.0.3"
   }
 }
