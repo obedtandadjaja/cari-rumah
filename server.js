@@ -9,8 +9,6 @@ import getGeocode from './src/google/maps/geocoding.js'
 
 const schema = buildSchema(typeDefs)
 
-getGeocode('1200 S Broadway', 'APT 204', 'Los Angeles', 'CA', '90015', 'US')
-
 // Create an express server and a GraphQL endpoint
 const app = express()
 app.use(`/graphql`, expressGraphql({
