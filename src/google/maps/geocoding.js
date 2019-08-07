@@ -10,4 +10,4 @@ function getGeocode(address_1, address_2, city, region, zip_code, country) {
   }).asPromise()
 }
 
-export default getGeocode;
+export default getGeocode
