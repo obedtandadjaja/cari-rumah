@@ -5,8 +5,6 @@ import { buildSchema } from 'graphql'
 import typeDefs from './src/type-defs'
 import resolvers from './src/resolvers'
 
-import getGeocode from './src/google/maps/geocoding.js'
-
 const schema = buildSchema(typeDefs)
 
 // Create an express server and a GraphQL endpoint

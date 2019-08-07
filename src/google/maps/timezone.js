@@ -1,9 +1,9 @@
 import googleMapsClient from '../client.js'
 
-function getTimezone(long, lat) {
+function getTimezone(lat, long) {
   return googleMapsClient.timezone({
-    location: [long, lat],
-    timestamp: Date.now(),
+    location: [lat, long],
+    timestamp: Date.now() / 1000,
     language: `en`
   }).asPromise()
 }

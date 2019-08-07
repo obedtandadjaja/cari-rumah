@@ -1,5 +1,6 @@
 import db from './../pg-adaptor.js'
 import getGeocode from './../google/maps/geocoding.js'
+import getTimezone from './../google/maps/timezone.js'
 
 class Address {
   static findById(id) {
@@ -34,13 +35,18 @@ class Address {
     country
   ) {
     return getGeocode(address_1, address_2, city, region, zip_code, country)
+      .then((response) => response.json.results[0].geometry.location)
+      .then((location) => {
+        return getTimezone(location.lat, location.lng).then(res => [res, location])
+      })
       .then((response) => {
-        let location = response.json.results[0].geometry.location
+        let timezone = response[0].json
+        let location = response[1]
+
         return db.one(
-          `insert into addresses (address_1, address_2, city, region, zip_code, country, longitude, latitude)
-       values ($1, $2, $3, $4, $5, $6, $7, $8) returning id`,
-          [address_1, address_2, city, region, zip_code, country, location.lng, location.lat]
-        )
+          `insert into addresses (address_1, address_2, city, region, zip_code, country, longitude, latitude, timezone)
+       values ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning id`,
+          [address_1, address_2, city, region, zip_code, country, location.lng, location.lat, timezone.timeZoneId])
       })
   }
 
