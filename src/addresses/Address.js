@@ -35,13 +35,13 @@ class Address {
     country
   ) {
     return getGeocode(address_1, address_2, city, region, zip_code, country)
-      .then((response) => response.json.results[0].geometry.location)
-      .then((location) => {
-        return getTimezone(location.lat, location.lng).then(res => [res, location])
+      .then((res) => res.json.results[0].geometry.location)
+      .then((loc) => {
+        return getTimezone(loc.lat, loc.lng).then(res => [res, loc])
       })
-      .then((response) => {
-        let timezone = response[0].json
-        let location = response[1]
+      .then((res) => {
+        let timezone = res[0].json
+        let location = res[1]
 
         return db.one(
           `insert into addresses (address_1, address_2, city, region, zip_code, country, longitude, latitude, timezone)
@@ -81,11 +81,17 @@ class Address {
           address.country
         )
       })
+      .then(res => res.json.results[0].geometry.location)
+      .then(loc => {
+        return getTimezone(loc.lat, loc.long).then(res => [res, loc])
+      })
       .then(res => {
-        let location = res.json.results[0].geometry.location
+        let timezone = res[0].json
+        let location = res[1]
+
         return db.none(
-          `update addresses set longitude = $1, latitude = $2 where id = $3`,
-          [location.lng, location.lat, id]
+          `update addresses set longitude = $1, latitude = $2, timezone = $3 where id = $4`,
+          [location.lng, location.lat, timezone.timeZoneId, id]
         )
       })
       .then(res => true)
