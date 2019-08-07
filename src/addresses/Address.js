@@ -40,7 +40,7 @@ class Address {
           `insert into addresses (address_1, address_2, city, region, zip_code, country, longitude, latitude)
        values ($1, $2, $3, $4, $5, $6, $7, $8) returning id`,
           [address_1, address_2, city, region, zip_code, country, location.lng, location.lat]
-        ).then(res => res)
+        )
       })
   }
 
@@ -53,8 +53,7 @@ class Address {
     zip_code,
     country
   ) {
-    // add Google's Geo API here to generate long, lat, and timezone
-    db.none(
+    return db.none(
       `update addresses set
        address_1 = coalesce($1, address_1),
        address_2 = coalesce($2, address_2),
@@ -64,9 +63,26 @@ class Address {
        country = coalesce($6, country)
        where id = $7`,
       [address_1, address_2, city, region, zip_code, country, id]
-    ).then(res => res).catch(err => err)
-
-    return true
+    )
+      .then(res => this.findById(id))
+      .then(address => {
+        return getGeocode(
+          address.address_1,
+          address.address_2,
+          address.city,
+          address.region,
+          address.zip_code,
+          address.country
+        )
+      })
+      .then(res => {
+        let location = res.json.results[0].geometry.location
+        return db.none(
+          `update addresses set longitude = $1, latitude = $2 where id = $3`,
+          [location.lng, location.lat, id]
+        )
+      })
+      .then(res => true)
   }
 }
 
