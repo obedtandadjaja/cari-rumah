@@ -1,5 +1,3 @@
-- test addresses and listings
-- add Google Map API to get long and lat and timezone
 - add credentials to user and do authentication
   - add middleware to graphql endpoints to check for authentication
   - check for authorization
@@ -25,4 +23,4 @@
       - Cons:
         - Expensive in the long run just like Google
         - Might be better to keep everything under Google if we are going to use their Maps APIs anyway
-
+- Need to obfuscate graphql response because appKey is present
