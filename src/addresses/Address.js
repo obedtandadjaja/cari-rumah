@@ -1,4 +1,5 @@
 import db from './../pg-adaptor.js'
+import getGeocode from './../google/maps/geocoding.js'
 
 class Address {
   static findById(id) {
@@ -32,12 +33,15 @@ class Address {
     zip_code,
     country
   ) {
-    // add Google's Geo API here to generate long, lat, and timezone
-    return db.one(
-      `insert into addresses (address_1, address_2, city, region, zip_code, country)
-       values ($1, $2, $3, $4, $5, $6) returning id`,
-      [address_1, address_2, city, region, zip_code, country]
-    ).then(res => res).catch(err => err)
+    return getGeocode(address_1, address_2, city, region, zip_code, country)
+      .then((response) => {
+        let location = response.json.results[0].geometry.location
+        return db.one(
+          `insert into addresses (address_1, address_2, city, region, zip_code, country, longitude, latitude)
+       values ($1, $2, $3, $4, $5, $6, $7, $8) returning id`,
+          [address_1, address_2, city, region, zip_code, country, location.lng, location.lat]
+        ).then(res => res)
+      })
   }
 
   static update(
