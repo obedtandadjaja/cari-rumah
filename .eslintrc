@@ -39,7 +39,7 @@
     "no-var": 1,
     "no-eval": "error",
     "indent": ["error", 2],
-    "quotes": ["error", "backtick"],
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
     "no-console": ["error", { "allow": ["warn", "info"] }],
     "space-before-function-paren": ["error", "never"],
     "padded-blocks": ["error", "never"],
