@@ -2,4 +2,3 @@
   - add middleware to graphql endpoints to check for authentication
   - check for authorization
 - Need to obfuscate graphql response because appKey is present
-- GraphQL middleware for logging
