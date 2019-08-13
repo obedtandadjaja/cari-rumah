@@ -9,8 +9,6 @@ import getAutocompleteRegionSuggestions from './src/google/maps/places.js'
 
 const schema = buildSchema(typeDefs)
 
-getAutocompleteRegionSuggestions('Jakarta Barat, Indonesia').then(res => console.dir(res.json, { depth: null }))
-
 // Create an express server and a GraphQL endpoint
 const app = express()
 app.use(`/graphql`, expressGraphql({
@@ -18,4 +16,4 @@ app.use(`/graphql`, expressGraphql({
   rootValue: resolvers,
   graphiql: true
 }))
-// app.listen(4000, () => console.log(`Express GraphQL Server Now Running On localhost:4000/graphql`))
+app.listen(4000, () => console.log(`Express GraphQL Server Now Running On localhost:4000/graphql`))
