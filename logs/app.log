@@ -1,3 +1,5 @@
 {"message":"Express GraphQL Server Now Running On localhost:4000/graphql","level":"info"}
 {"message":"Express GraphQL Server Now Running On localhost:4000/graphql","level":"info"}
 {"message":"::1 - - [13/Aug/2019:06:02:22 +0000] \"POST /graphql? HTTP/1.1\" 200 38 \"http://localhost:4000/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36\"\n","level":"info"}
+{"message":"Express GraphQL Server Now Running On localhost:4000/graphql","level":"info"}
+{"message":"::1 - - [13/Aug/2019:06:06:03 +0000] \"POST /graphql? HTTP/1.1\" 200 144 \"http://localhost:4000/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36\"\n","level":"info"}
