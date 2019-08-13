@@ -10,6 +10,7 @@ function getAutocompleteRegionSuggestions(input) {
     },
     sessiontoken: ''
   }).asPromise()
+    .then(res => res.json.predictions)
 }
 
 export default getAutocompleteRegionSuggestions
