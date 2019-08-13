@@ -1,4 +1,4 @@
-import googleMapsClient from '../client.js'
+import googleMapsClient from '../client'
 
 function buildFullAddress(address_1, address_2, city, region, zip_code, country) {
   return `${address_1} ${address_2}, ${city}, ${region} ${zip_code}, ${country}`

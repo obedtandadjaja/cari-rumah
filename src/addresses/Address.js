@@ -1,6 +1,6 @@
-import db from './../pg-adaptor.js'
-import getGeocode from './../google/maps/geocoding.js'
-import getTimezone from './../google/maps/timezone.js'
+import db from './../pg-adaptor'
+import getGeocode from './../google/maps/geocoding'
+import getTimezone from './../google/maps/timezone'
 
 class Address {
   static findById(id) {

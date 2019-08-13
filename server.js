@@ -1,9 +1,7 @@
 import express from 'express'
-import expressGraphql from 'express-graphql'
-import { buildSchema } from 'graphql'
 import morgan from 'morgan'
-import logger from './src/logger.js'
-import graphQLMiddleware from './src/middlewares/graphql.js'
+import logger from './src/logger'
+import graphQLMiddleware from './src/middlewares/graphql'
 
 // Create an express server and a GraphQL endpoint
 const app = express()

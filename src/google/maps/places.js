@@ -1,4 +1,4 @@
-import googleMapsClient from '../client.js'
+import googleMapsClient from '../client'
 
 function getAutocompleteRegionSuggestions(input) {
   return googleMapsClient.placesAutoComplete({
