@@ -6,6 +6,7 @@ function getTimezone(lat, long) {
     timestamp: Date.now() / 1000,
     language: `en`
   }).asPromise()
+    .then(res => res.json.timeZoneId)
 }
 
 export default getTimezone
