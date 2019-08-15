@@ -1,3 +1,1 @@
-- Need to obfuscate graphql response because appKey is present
 - Need authorization middleware
-- Need logging for endpoint performance
