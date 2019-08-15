@@ -1,4 +1,3 @@
-- add credentials to user and do authentication
-  - add middleware to graphql endpoints to check for authentication
-  - check for authorization
 - Need to obfuscate graphql response because appKey is present
+- Need authorization middleware
+- Need logging for endpoint performance
