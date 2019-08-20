@@ -1,7 +1,7 @@
 import getAutocompletePredictions from './../google/maps/places'
 
 function serve(request, response) {
-  if(request.params.name === 'autocomplete') {
+  if(request.params.name === 'autocomplete' && request.method === 'GET') {
     getAutocompletePredictions(request.query.input)
       .then(res => response.json(res).status(200).end())
       .catch(err => response.json({ message: 'Something went wrong' }).status(500).end())
