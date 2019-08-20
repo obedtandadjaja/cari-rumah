@@ -1,16 +1,16 @@
 import googleMapsClient from '../client'
 
-function getAutocompleteRegionSuggestions(input) {
+function getAutocompletePredictions(input) {
   return googleMapsClient.placesAutoComplete({
     input: input,
     language: 'id',
-    location: {
+    location: { // bound to sabang to merauke
       lat: 5.9666796,
       lng: 95.0957736
     },
-    sessiontoken: ''
+    sessiontoken: '' // defaulted to session token from client
   }).asPromise()
     .then(res => res.json.predictions)
 }
 
-export default getAutocompleteRegionSuggestions
+export default getAutocompletePredictions
