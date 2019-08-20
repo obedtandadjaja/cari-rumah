@@ -1,6 +1,6 @@
 import googleMapsClient from '../client'
 
-function getAutocompletePredictions(input) {
+export function getAutocompletePredictions(input) {
   return googleMapsClient.placesAutoComplete({
     input: input,
     language: 'id',
@@ -13,4 +13,11 @@ function getAutocompletePredictions(input) {
     .then(res => res.json.predictions)
 }
 
-export default getAutocompletePredictions
+export function getPlaceGeometryById(id) {
+  return googleMapsClient.place({
+    placeid: id,
+    fields: ['geometry'], // since the only use case is to get the lat and log, let's not bother get anything else
+    sessiontoken: ''
+  }).asPromise()
+    .then(res => res.json.result.geometry)
+}
