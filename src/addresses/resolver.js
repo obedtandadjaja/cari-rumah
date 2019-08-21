@@ -6,6 +6,7 @@ export default {
   addressByCity: ({ city }) => Address.whereByCity(city),
   addressByZipCode: ({ zip_code }) => Address.whereByZipCode(zip_code),
   addressByLongLat: ({ long, lat }) => Address.findByLongLat(long, lat),
+  addressByLongLatDistance: ({ long, lat, distance }) => Address.whereByLongLatDistance(long, lat, distance),
   createAddress: ({
     address_1,
     address_2,

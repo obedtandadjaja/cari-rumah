@@ -7,8 +7,8 @@ exports.up = (db, callback) => {
     region: { type: `string` },
     zip_code: { type: `string` },
     country: { type: `string` },
-    longitude: { type: `decimal` },
-    latitude: { type: `decimal` },
+    longitude: { type: `float8` },
+    latitude: { type: `float8` },
     timezone: { type: `string` }
   }, callback)
 };

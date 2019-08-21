@@ -19,11 +19,17 @@ class Address {
     return db.any(`select * from addresses where zip_code=$1`, [zip_code]).then(res => res).catch(err => err)
   }
 
-  // need to do find by km/miles
   static findByLongLat(long, lat) {
-    return db.any(`select * from addresses where longitude=$1 and latitude=$2`, [longitude, latitude])
+    return db.one(`select * from addresses where longitude=$1 and latitude=$2`, [longitude, latitude])
       .then(res => res)
       .catch(err => err)
+  }
+
+  static whereByLongLatDistance(long, lat, distanceInMiles) {
+    return db.any(`
+      select * from address
+      where (point(longitude, lat)::point <@> point($1, $2)) <= $3`
+    ).then(res => res).catch(err => err)
   }
 
   static create(
