@@ -8,3 +8,5 @@
     - Can detect address without specifying so - this is also definitely covered by Google
   - Possible solutions:
     - Any predictions made by Google, get the lat long of that and have the map to center around that particular area. Start by paginating areas that are closest to the epicenter and start getting more and more areas that are further away
+- Need to query in the DB for closest listings near a searched item
+  - found a good medium article for Postgre: https://medium.com/@philipdbrown/oh-postgresql-you-surprise-me-everyday-geospatial-search-49e63ea14a18
