@@ -1,4 +1,4 @@
-import getAutocompletePredictions from './../google/maps/places'
+import { getAutocompletePredictions } from './../google/maps/places'
 
 function serve(request, response) {
   if(request.params.name === 'autocomplete' && request.method === 'GET') {
