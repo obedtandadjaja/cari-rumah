@@ -9,4 +9,11 @@
   - Possible solutions:
     - Any predictions made by Google, get the lat long of that and have the map to center around that particular area. Start by paginating areas that are closest to the epicenter and start getting more and more areas that are further away
 - Need to query in the DB for closest listings near a searched item
-  - found a good medium article for Postgre: https://medium.com/@philipdbrown/oh-postgresql-you-surprise-me-everyday-geospatial-search-49e63ea14a18
+  - found a good medium article for Postgres: https://medium.com/@philipdbrown/oh-postgresql-you-surprise-me-everyday-geospatial-search-49e63ea14a18
+    sample query:
+    ```
+    select *, point(-118.2603001, 34.0379888)::point <@> point(longitude, latitude)::point as distance
+    from addresses 
+    where (point(-118.2603001, 34.0379888)::point <@> point(longitude, latitude)::point) < 10
+    order by distance;
+    ```
