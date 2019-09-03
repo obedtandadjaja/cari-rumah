@@ -18,8 +18,16 @@ const corsOptions = {
   }
 }
 
-// Create an express server and a GraphQL endpoint
 const app = express()
+
+// Serve static content
+app.use(
+  '/',
+  [cors(corsOptions), responseTimeMiddleware, authenticationMiddleware],
+  express.static(path.resolve(__dirname, 'public'))
+)
+
+// Create an express server and a GraphQL endpoint
 app.use(morgan('combined', { stream: logger.stream }))
 app.use(
   '/graphql',
