@@ -24,7 +24,7 @@ const app = express()
 app.use(
   '/',
   [cors(corsOptions), responseTimeMiddleware, authenticationMiddleware],
-  express.static(path.resolve(__dirname, 'public'))
+  express.static('./public')
 )
 
 // Create an express server and a GraphQL endpoint
