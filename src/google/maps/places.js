@@ -5,7 +5,6 @@ export function getAutocompletePredictions(input) {
     input: input,
     language: 'id',
     components: { country: 'id' },
-    strictbounds: true,
     sessiontoken: '' // defaulted to session token from client
   }).asPromise()
     .then(res => res.json.predictions)
