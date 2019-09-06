@@ -1,4 +1,3 @@
-require(`dotenv`).config()
 import Promise from 'promise'
 
 import googleMaps from '@google/maps'
