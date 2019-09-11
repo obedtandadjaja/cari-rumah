@@ -1,11 +1,12 @@
 import Listing from './Listing'
+import Address from './../addresses/Address'
 
 export default {
-  listing: ({ id }) => Listing.findById(id),
-  listingByAddress: ({ address_id }) => Listing.findByAddress(address_id),
-  listingsByAddresses: ({ address_ids }) => Listing.whereByAddresses(address_ids),
-  listingsByUserId: ({ user_id }) => Listing.whereByUserId(user_id),
-  createListing: ({
+  listing: async({ id }) => await Listing.findById(id),
+  listingByAddress: async({ address_id }) => await Listing.findByAddress(address_id),
+  listingsByAddresses: async({ address_ids }) => await Listing.whereByAddresses(address_ids),
+  listingsByUserId: async({ user_id }) => await Listing.whereByUserId(user_id),
+  createListing: async({
     user_id,
     address_id,
     num_bedrooms,
@@ -20,11 +21,11 @@ export default {
     display_picture_url,
     residential_type,
     type
-  }) => Listing.create(
+  }) => await Listing.create(
     user_id, address_id, num_bedrooms, num_bathrooms, num_parking_lots, num_stories, lot_size_sqft,
     year_built, price_cents, price_currency, description, display_picture_url, residential_type, type
   ),
-  updateListing: ({
+  updateListing: async({
     id,
     user_id,
     address_id,
@@ -40,8 +41,11 @@ export default {
     display_picture_url,
     residential_type,
     type
-  }) => Listing.update(
+  }) => await Listing.update(
     id, user_id, address_id, num_bedrooms, num_bathrooms, num_parking_lots, num_stories, lot_size_sqft,
     year_built, price_cents, price_currency, description, display_picture_url, residential_type, type
-  )
+  ),
+  Listing: {
+    address: async({ address_id }) => await Listing.findById(address_id)
+  }
 }

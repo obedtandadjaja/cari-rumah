@@ -7,7 +7,13 @@ const schema = buildSchema(typeDefs)
 const graphQLMiddleware =  expressGraphql({
   schema: schema,
   rootValue: resolvers,
-  graphiql: true
+  graphiql: true,
+  customFormatErrorFn: (error) => ({
+    message: error.message,
+    locations: error.locations,
+    stack: error.stack ? error.stack.split('\n') : [],
+    path: error.path,
+  })
 })
 
 export default graphQLMiddleware

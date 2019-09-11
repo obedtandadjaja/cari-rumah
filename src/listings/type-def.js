@@ -15,6 +15,7 @@ export default `
     display_picture_url: String
     residential_type: String
     type: String
+    address: Address
   }
 
   type Query {

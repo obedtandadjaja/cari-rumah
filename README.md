@@ -6,7 +6,7 @@ Node.js, Postgres, GraphQL backend web app
 ```
 $ npm install
 $ db-migrate up
-$ node index.js
+$ npm start
 ```
 
 `index.js` is the entry point of the app. All it does is it sets the babel preset and the rest of the logic can be tracked down from `server.js`

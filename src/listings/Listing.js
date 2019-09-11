@@ -113,3 +113,5 @@ class Listing {
     return true
   }
 }
+
+export default Listing
