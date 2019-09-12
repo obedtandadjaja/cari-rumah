@@ -18,3 +18,5 @@
     where (point(-118.2603001, 34.0379888)::point <@> point(longitude, latitude)::point) < 10
     order by distance;
     ```
+- Finish migration to apollo server
+- Use apollo server data structures to cache some common queries
