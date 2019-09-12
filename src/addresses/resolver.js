@@ -23,5 +23,6 @@ export default {
     region,
     zip_code,
     country
-  }) => Address.update(id, address_1, address_2, city, region, zip_code, country)
+  }) => Address.update(id, address_1, address_2, city, region, zip_code, country),
+  Address: {}
 }

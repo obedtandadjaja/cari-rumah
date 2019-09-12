@@ -1,5 +1,6 @@
 import Listing from './Listing'
 import Address from './../addresses/Address'
+import logger from './../logger'
 
 export default {
   listing: async({ id }) => await Listing.findById(id),
@@ -46,6 +47,8 @@ export default {
     year_built, price_cents, price_currency, description, display_picture_url, residential_type, type
   ),
   Listing: {
-    address: async({ address_id }) => await Listing.findById(address_id)
+    address: (root, args, context) => {
+      return { address_id: 1 }
+    }
   }
 }

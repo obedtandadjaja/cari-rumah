@@ -4,7 +4,7 @@ import typeDefs from './../type-defs'
 import resolvers from './../resolvers'
 
 const schema = buildSchema(typeDefs)
-const graphQLMiddleware =  expressGraphql({
+const graphQLMiddleware = expressGraphql({
   schema: schema,
   rootValue: resolvers,
   graphiql: true,
