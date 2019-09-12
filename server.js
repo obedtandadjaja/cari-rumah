@@ -19,6 +19,7 @@ const corsOptions = {
 }
 
 const app = express()
+app.use(morgan('combined', { stream: logger.stream }))
 
 // Serve static content
 app.use(
@@ -28,12 +29,7 @@ app.use(
 )
 
 // Create an express server and a GraphQL endpoint
-app.use(morgan('combined', { stream: logger.stream }))
-app.use(
-  '/graphql',
-  [cors(corsOptions), responseTimeMiddleware, authenticationMiddleware],
-  graphQLHandler
-)
+graphQLHandler.applyMiddleware({ app, path: '/graphql' })
 
 // Google endpoint
 app.use(
@@ -43,4 +39,4 @@ app.use(
 )
 
 // Register app to listen on port 4000
-app.listen(4000, () => logger.info(`Express Server Now Running On localhost:4000/graphql`))
+app.listen(4000, () => logger.info(`Express Server Now Running On localhost:4000`))

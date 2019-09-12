@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@google/maps": "^0.5.5",
-    "apollo-server": "^2.9.3",
+    "apollo-server-express": "^2.9.3",
     "cors": "^2.8.5",
     "db-migrate": "^0.11.6",
     "db-migrate-pg": "^1.0.0",

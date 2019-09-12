@@ -19,12 +19,6 @@ class Address {
     return db.any(`select * from addresses where zip_code=$1`, [zip_code]).then(res => res).catch(err => err)
   }
 
-  static findByLongLat(long, lat) {
-    return db.one(`select * from addresses where longitude=$1 and latitude=$2`, [longitude, latitude])
-      .then(res => res)
-      .catch(err => err)
-  }
-
   static whereByLongLatDistance(long, lat, distanceInMiles) {
     return db.any(`
       select * from address
