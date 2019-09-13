@@ -10,7 +10,7 @@ class Listing {
   }
 
   static whereByAddresses(address_ids) {
-    return db.any(`select * from listings where address_id in $1`, [address_ids]).then(res => res).catch(err => err)
+    return db.any(`select * from listings where address_id in ($1:csv)`, [address_ids]).then(res => res).catch(err => err)
   }
 
   static whereByUserId(user_id) {
