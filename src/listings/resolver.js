@@ -1,6 +1,6 @@
 import Listing from './Listing'
 import Address from './../addresses/Address'
-import logger from './../logger'
+import User from './../users/User'
 
 export default {
   Query: {
@@ -58,6 +58,7 @@ export default {
     ),
   },
   Listing: {
-    address: async(root, args, context) => await Address.findById(root.address_id)
+    address: async(root, args, context) => await Address.findById(root.address_id),
+    user: async(root, args, context) => await User.findById(root.user_id)
   }
 }

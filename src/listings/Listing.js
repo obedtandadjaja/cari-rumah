@@ -108,7 +108,7 @@ class Listing {
         type,
         id
       ]
-    ).then(res => res).cathc(err => err)
+    ).then(res => res).catch(err => err)
 
     return true
   }

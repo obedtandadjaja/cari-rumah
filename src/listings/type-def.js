@@ -16,6 +16,7 @@ export default `
     residential_type: String
     type: String
     address: Address
+    user: User
   }
 
   type Query {
