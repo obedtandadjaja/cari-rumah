@@ -25,12 +25,14 @@ export default {
         price_currency,
         description,
         display_picture_url,
+        picture_urls,
         residential_type,
         type
       },
       context) => await Listing.create(
       user_id, address_id, num_bedrooms, num_bathrooms, num_parking_lots, num_stories, lot_size_sqft,
-      year_built, price_cents, price_currency, description, display_picture_url, residential_type, type
+      year_built, price_cents, price_currency, description, display_picture_url, picture_urls, residential_type,
+      type
     ),
     updateListing: async(
       root,
@@ -48,13 +50,15 @@ export default {
         price_currency,
         description,
         display_picture_url,
+        picture_urls,
         residential_type,
         type
       },
       context
     ) => await Listing.update(
       id, user_id, address_id, num_bedrooms, num_bathrooms, num_parking_lots, num_stories, lot_size_sqft,
-      year_built, price_cents, price_currency, description, display_picture_url, residential_type, type
+      year_built, price_cents, price_currency, description, display_picture_url, picture_urls, residential_type,
+      type
     ),
   },
   Listing: {

@@ -30,14 +30,16 @@ class Listing {
     price_currency,
     description,
     display_picture_url,
+    picture_urls,
     residential_type,
     type
   ) {
     // add Google's Geo API here to generate long, lat, and timezone
     return db.one(
       `insert into addresses (user_id, address_id, num_bedrooms, num_bathrooms, num_parking_lots, num_stories
-       lot_size_sqft, year_built, price_cents, price_currency, description, display_picture_url, residential_type, type)
-       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) returning id`,
+       lot_size_sqft, year_built, price_cents, price_currency, description, display_picture_url, picture_urls,
+       residential_type, type)
+       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) returning id`,
       [
         user_id,
         address_id,
@@ -51,10 +53,11 @@ class Listing {
         price_currency,
         description,
         display_picture_url,
+        picture_urls,
         residential_type,
         type
       ]
-    ).then(res => res).cathc(err => err)
+    ).then(res => res).catch(err => err)
   }
 
   static update(
@@ -71,6 +74,7 @@ class Listing {
     price_currency,
     description,
     display_picture_url,
+    picture_urls,
     residential_type,
     type
   ) {
@@ -88,8 +92,9 @@ class Listing {
        price_currency = coalesce($10, price_currency),
        description = coalesce($11, description),
        display_picture_url = coalesce($12, display_picture_url),
-       residential_type = coalesce($13, residential_type),
-       type = coalesce($14, type)
+       picture_urls = coalesce($13, picture_urls),
+       residential_type = coalesce($14, residential_type),
+       type = coalesce($15, type)
        where id = $id`,
       [
         user_id,
@@ -104,6 +109,7 @@ class Listing {
         price_currency,
         description,
         display_picture_url,
+        picture_urls,
         residential_type,
         type,
         id
