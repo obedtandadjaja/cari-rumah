@@ -2,11 +2,11 @@ import User from './User'
 
 export default {
   Query: {
-    user: ({ id }) => User.findById(1),
-    users: () => User.all(),
+    user: async(root, { id }, context) => await User.findById(1),
+    users: async(root, args, context) => await User.all(),
   },
   Mutation: {
-    createUser: ({ name, email, phone, notification_methods}) => User.create(name, email, phone, notification_methods),
+    createUser: async(root, { name, email, phone, notification_methods}, context) => await User.create(name, email, phone, notification_methods),
   },
   User: {},
 }
