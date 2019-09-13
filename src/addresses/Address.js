@@ -4,27 +4,27 @@ import getTimezone from './../google/maps/timezone'
 
 class Address {
   static findById(id) {
-    return db.one(`select * from addresses where id=$1`, [id]).then(res => res).catch(err => err)
+    return db.one(`select * from addresses where id=$1`, [id])
   }
 
   static whereByRegion(region) {
-    return db.any(`select * from addresses where region=$1`, [region]).then(res => res).catch(err => err)
+    return db.any(`select * from addresses where region=$1`, [region])
   }
 
   static whereByCity(city) {
-    return db.any(`select * from addresses where city=$1`, [city]).then(res => res).catch(err => err)
+    return db.any(`select * from addresses where city=$1`, [city])
   }
 
   static whereByZipCode(zip_code) {
-    return db.any(`select * from addresses where zip_code=$1`, [zip_code]).then(res => res).catch(err => err)
+    return db.any(`select * from addresses where zip_code=$1`, [zip_code])
   }
 
-  static whereByLongLatDistance(lat, long, distanceInMiles) {
+  static whereByLatLongDistance(lat, long, distanceInMiles) {
     return db.any(
       `select * from addresses
       where (point(latitude, longitude)::point <@> point($1, $2)) <= $3`,
       [lat, long, distanceInMiles]
-    ).then(res => res).catch(err => err)
+    )
   }
 
   static create(

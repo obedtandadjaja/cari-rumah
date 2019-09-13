@@ -19,10 +19,23 @@ export default `
     user: User
   }
 
+  enum ListingSortBy {
+    price
+    distance
+    createdAt
+  }
+
   type Query {
     listing(id: ID!): Listing
     listingByAddress(address_id: ID!): Listing
     listingsByAddresses(address_ids: [ID]): [Listing]
+    listingsByAddressLatLongDistance(
+      lat: Float!,
+      long: Float!,
+      distance: Float!,
+      sortBy: ListingSortBy,
+      sortDirection: SortDirection
+    ): [Listing]
     listingsByUserId(user_id: ID!): [Listing]
   }
 

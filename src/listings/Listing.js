@@ -2,19 +2,19 @@ import db from './../pg-adaptor'
 
 class Listing {
   static findById(id) {
-    return db.one(`select * from listings where id=$1`, [id]).then(res => res).catch(err => err)
+    return db.one(`select * from listings where id=$1`, [id])
   }
 
   static findByAddress(address_id) {
-    return db.one(`select * from listings where address_id=$1`, [id]).then(res => res).catch(err => err)
+    return db.one(`select * from listings where address_id=$1`, [address_id])
   }
 
   static whereByAddresses(address_ids) {
-    return db.any(`select * from listings where address_id in ($1:csv)`, [address_ids]).then(res => res).catch(err => err)
+    return db.any(`select * from listings where address_id in ($1:csv)`, [address_ids])
   }
 
   static whereByUserId(user_id) {
-    return db.any(`select * from listings where user_id=$1`, [id]).then(res => res).catch(err => err)
+    return db.any(`select * from listings where user_id=$1`, [user_id])
   }
 
   static create(
@@ -57,7 +57,7 @@ class Listing {
         residential_type,
         type
       ]
-    ).then(res => res).catch(err => err)
+    )
   }
 
   static update(
@@ -114,9 +114,7 @@ class Listing {
         type,
         id
       ]
-    ).then(res => res).catch(err => err)
-
-    return true
+    )
   }
 }
 
