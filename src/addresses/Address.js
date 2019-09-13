@@ -19,10 +19,11 @@ class Address {
     return db.any(`select * from addresses where zip_code=$1`, [zip_code]).then(res => res).catch(err => err)
   }
 
-  static whereByLongLatDistance(long, lat, distanceInMiles) {
-    return db.any(`
-      select * from address
-      where (point(longitude, lat)::point <@> point($1, $2)) <= $3`
+  static whereByLongLatDistance(lat, long, distanceInMiles) {
+    return db.any(
+      `select * from addresses
+      where (point(latitude, longitude)::point <@> point($1, $2)) <= $3`,
+      [lat, long, distanceInMiles]
     ).then(res => res).catch(err => err)
   }
 
