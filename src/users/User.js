@@ -9,11 +9,11 @@ class User {
     return db.one(`select * from users where id=$1`, [id])
   }
 
-  static create(name, email, phone, notification_methods) {
+  static create(args) {
     return db.one(
-      `insert into users (name, email, phone, notification_methods)
-       values ($1, $2, $3, $4) returning id`,
-      [name, email, phone, notification_methods]
+      `insert into users (name, email, phone, notification_methods, credential_id)
+       values (${name}, ${email}, ${phone}, ${notification_methods}, ${credential_id}) returning id`,
+      args
     )
   }
 }

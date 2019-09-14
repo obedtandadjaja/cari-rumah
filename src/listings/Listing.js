@@ -5,6 +5,10 @@ class Listing {
     return db.one(`select * from listings where id=$1`, [id])
   }
 
+  static whereByIds(ids) {
+    return db.any(`select * from listings where id in ($1:csv)`, [ids])
+  }
+
   static findByAddress(address_id) {
     return db.one(`select * from listings where address_id=$1`, [address_id])
   }

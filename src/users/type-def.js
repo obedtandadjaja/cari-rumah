@@ -5,6 +5,9 @@ export default `
     email: String
     phone: String
     notification_methods: [String]
+    listings: [Listing]
+    saved_listings: [Listing]
+    credential_id: Int
   }
 
   type Query {
