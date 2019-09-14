@@ -4,7 +4,7 @@ exports.up = (db, callback) => {
     address_1: { type: 'string' },
     address_2: { type: 'string' },
     city: { type: 'string' },
-    region: { type: 'string' },
+    province: { type: 'string' },
     zip_code: { type: 'string' },
     country: { type: 'string' },
     longitude: { type: 'decimal' },
