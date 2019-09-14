@@ -27,9 +27,9 @@ exports.up = (db, callback) => {
     num_bedrooms: { type: 'decimal' },
     num_bathrooms: { type: 'decimal' },
     num_parking_spots: { type: 'decimal' },
-    lot_size_sqft: { type: 'decimal' },
+    lot_size_m2: { type: 'decimal' },
     num_stories: { type: 'decimal' },
-    year_built: { type: 'decimal' },
+    year_built: { type: 'int' },
     address_id: {
       type: 'int',
       unsigned: true,
@@ -43,14 +43,13 @@ exports.up = (db, callback) => {
         mapping: 'id'
       }
     },
-    price_cents: { type: 'bigint' },
-    price_currency: { type: 'string' },
+    price_idr: { type: 'bigint' },
     description: { type: 'text' },
     display_picture_url: { type: 'text' },
-    picture_urls: { type: 'string[]' },
+    picture_urls: { type: 'text[]', default: '{}' },
     residential_type: { type: 'string' },
     type: { type: 'string' }
   }, addUserIdIndex)
-};
+}
 
-exports.down = (db, callback) => {};
+exports.down = (db, callback) => {}

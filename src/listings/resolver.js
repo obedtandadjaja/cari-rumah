@@ -5,8 +5,11 @@ import User from './../users/User'
 export default {
   Query: {
     listing: async(root, { id }, context) => await Listing.findById(id),
+
     listingByAddress: async(root, { address_id }, context) => await Listing.findByAddress(address_id),
+
     listingsByAddresses: async(root, { address_ids }, context) => await Listing.whereByAddresses(address_ids),
+
     listingsByAddressLatLongDistance: async(root, { lat, long, distance, sortBy, sortDirection }, context) => {
       let result = await Address.whereByLatLongDistance(lat, long, distance)
         .then(async(addresses) => {
@@ -23,59 +26,13 @@ export default {
         })
       return result
     },
+
     listingsByUserId: async(root, { user_id }, context) => await Listing.whereByUserId(user_id),
   },
   Mutation: {
-    createListing: async(
-      root,
-      {
-        user_id,
-        address_id,
-        num_bedrooms,
-        num_bathrooms,
-        num_parking_lots,
-        num_stories,
-        lot_size_sqft,
-        year_built,
-        price_cents,
-        price_currency,
-        description,
-        display_picture_url,
-        picture_urls,
-        residential_type,
-        type
-      },
-      context) => await Listing.create(
-      user_id, address_id, num_bedrooms, num_bathrooms, num_parking_lots, num_stories, lot_size_sqft,
-      year_built, price_cents, price_currency, description, display_picture_url, picture_urls, residential_type,
-      type
-    ),
-    updateListing: async(
-      root,
-      {
-        id,
-        user_id,
-        address_id,
-        num_bedrooms,
-        num_bathrooms,
-        num_parking_lots,
-        num_stories,
-        lot_size_sqft,
-        year_built,
-        price_cents,
-        price_currency,
-        description,
-        display_picture_url,
-        picture_urls,
-        residential_type,
-        type
-      },
-      context
-    ) => await Listing.update(
-      id, user_id, address_id, num_bedrooms, num_bathrooms, num_parking_lots, num_stories, lot_size_sqft,
-      year_built, price_cents, price_currency, description, display_picture_url, picture_urls, residential_type,
-      type
-    ),
+    createListing: async(root, args, context) => await Listing.create(args),
+
+    updateListing: async(root, args, context) => await Listing.update(args),
   },
   Listing: {
     address: async(root, args, context) => {
@@ -84,6 +41,7 @@ export default {
 
       return await Address.findById(root.address_id)
     },
+
     user: async(root, args, context) => {
       if (root.user)
         return root.user

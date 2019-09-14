@@ -6,11 +6,10 @@ export default `
     num_bedrooms: Float
     num_bathrooms: Float
     num_parking_spots: Float
-    lot_size_sqft: Float
+    lot_size_m2: Float
     num_stories: Float
     year_built: Int
-    price_cents: Int
-    price_currency: String
+    price_idr: Int
     description: String
     display_picture_url: String
     residential_type: String
@@ -49,7 +48,7 @@ export default `
       num_stories: Float,
       lot_size_sqft: Float,
       year_built: Int,
-      price_cents: Int,
+      price_idr: Int,
       price_currency: String,
       description: String,
       display_picture_url: String,
@@ -66,7 +65,7 @@ export default `
       num_stories: Float,
       lot_size_sqft: Float,
       year_built: Int,
-      price_cents: Int,
+      price_idr: Int,
       price_currency: String,
       description: String,
       display_picture_url: String,

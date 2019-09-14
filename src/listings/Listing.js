@@ -17,103 +17,36 @@ class Listing {
     return db.any(`select * from listings where user_id=$1`, [user_id])
   }
 
-  static create(
-    user_id,
-    address_id,
-    num_bedrooms,
-    num_bathrooms,
-    num_parking_lots,
-    num_stories,
-    lot_size_sqft,
-    year_built,
-    price_cents,
-    price_currency,
-    description,
-    display_picture_url,
-    picture_urls,
-    residential_type,
-    type
-  ) {
-    // add Google's Geo API here to generate long, lat, and timezone
+  static create(args) {
     return db.one(
       `insert into addresses (user_id, address_id, num_bedrooms, num_bathrooms, num_parking_lots, num_stories
-       lot_size_sqft, year_built, price_cents, price_currency, description, display_picture_url, picture_urls,
-       residential_type, type)
-       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) returning id`,
-      [
-        user_id,
-        address_id,
-        num_bedrooms,
-        num_bathrooms,
-        num_parking_lots,
-        num_stories,
-        lot_size_sqft,
-        year_built,
-        price_cents,
-        price_currency,
-        description,
-        display_picture_url,
-        picture_urls,
-        residential_type,
-        type
-      ]
+       lot_size_m2, year_built, price_idr, description, display_picture_url, picture_urls, residential_type,
+       type)
+       values (${user_id}, ${address_id}, ${num_bedrooms}, ${num_bathrooms}, ${num_parking_lots},
+       ${num_stories}, ${lot_size_m2}, ${year_built}, ${price_idr}, ${description},
+       ${display_picture_url}, ${picture_urls}, ${residential_type}, ${type}) returning id`,
+      args
     )
   }
 
-  static update(
-    id,
-    user_id,
-    address_id,
-    num_bedrooms,
-    num_bathrooms,
-    num_parking_lots,
-    num_stories,
-    lot_size_sqft,
-    year_built,
-    price_cents,
-    price_currency,
-    description,
-    display_picture_url,
-    picture_urls,
-    residential_type,
-    type
-  ) {
+  static update(args) {
     db.none(
       `update addresses set
-       user_id = coalesce($1, user_id),
-       address_id = coalesce($2, address_id),
-       num_bedrooms = coalesce($3, num_bedrooms),
-       num_bathrooms = coalesce($4, num_bathrooms),
-       num_parking_lots = coalesce($5, num_parking_lots),
-       num_stories = coalesce($6, num_stories),
-       lot_size_sqft = coalesce($7, lot_size_sqft),
-       year_built = coalesce($8, year_built),
-       price_cents = coalesce($9, price_cents),
-       price_currency = coalesce($10, price_currency),
-       description = coalesce($11, description),
-       display_picture_url = coalesce($12, display_picture_url),
-       picture_urls = coalesce($13, picture_urls),
-       residential_type = coalesce($14, residential_type),
-       type = coalesce($15, type)
-       where id = $id`,
-      [
-        user_id,
-        address_id,
-        num_bedrooms,
-        num_bathrooms,
-        num_parking_lots,
-        num_stories,
-        lot_size_sqft,
-        year_built,
-        price_cents,
-        price_currency,
-        description,
-        display_picture_url,
-        picture_urls,
-        residential_type,
-        type,
-        id
-      ]
+       user_id = coalesce(${user_id}, user_id),
+       address_id = coalesce(${address_id}, address_id),
+       num_bedrooms = coalesce(${num_bedrooms}, num_bedrooms),
+       num_bathrooms = coalesce(${num_bathrooms}, num_bathrooms),
+       num_parking_lots = coalesce(${num_parking_lots}, num_parking_lots),
+       num_stories = coalesce(${num_stories}, num_stories),
+       lot_size_m2 = coalesce(${lot_size_m2}, lot_size_m2),
+       year_built = coalesce(${year_built}, year_built),
+       price_idr = coalesce(${price_idr}, price_idr),
+       description = coalesce(${description}, description),
+       display_picture_url = coalesce(${display_picture_url}, display_picture_url),
+       picture_urls = coalesce(${picture_urls}, picture_urls),
+       residential_type = coalesce(${residential_type}, residential_type),
+       type = coalesce(${type}, type)
+       where id = $id`, args
     )
   }
 }
