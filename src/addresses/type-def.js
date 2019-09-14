@@ -4,7 +4,7 @@ export default `
     address_1: String
     address_2: String
     city: String
-    region: String
+    province: String
     zip_code: String
     country: String
     longitude: Float
@@ -14,7 +14,7 @@ export default `
 
   type Query {
     address(id: ID!): Address
-    addressesByRegion(region: String): [Address]
+    addressesByProvince(province: String): [Address]
     addressesByCity(city: String): [Address]
     addressesByZipCode(zip_code: String): [Address]
     addressesByLatLongDistance(lat: Float, long: Float, distance: Float): [Address]
@@ -25,7 +25,7 @@ export default `
       address_1: String!,
       address_2: String,
       city: String!,
-      region: String!,
+      province: String!,
       zip_code: String,
       country: String!
     ): Address
@@ -34,7 +34,7 @@ export default `
       address_1: String,
       address_2: String,
       city: String,
-      region: String,
+      province: String,
       zip_code: String,
       country: String
     ): Boolean

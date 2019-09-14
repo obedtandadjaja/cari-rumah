@@ -7,8 +7,8 @@ class Address {
     return db.one(`select * from addresses where id=$1`, [id])
   }
 
-  static whereByRegion(region) {
-    return db.any(`select * from addresses where region=$1`, [region])
+  static whereByProvince(province) {
+    return db.any(`select * from addresses where province=$1`, [province])
   }
 
   static whereByCity(city) {
@@ -27,48 +27,31 @@ class Address {
     )
   }
 
-  static create(
-    address_1,
-    address_2,
-    city,
-    region,
-    zip_code,
-    country
-  ) {
-    return getGeocode(address_1, address_2, city, region, zip_code, country)
+  static create(args) {
+    return getGeocode(address_1, address_2, city, province, zip_code, country)
       .then((loc) => {
         return getTimezone(loc.lat, loc.lng).then(res => [res, loc])
       })
       .then((res) => {
-        let timezone = res[0]
-        let location = res[1]
-
+        const [timezone, location] = res
         return db.one(
-          `insert into addresses (address_1, address_2, city, region, zip_code, country, longitude, latitude, timezone)
-       values ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning id`,
-          [address_1, address_2, city, region, zip_code, country, location.lng, location.lat, timezone])
+          `insert into addresses (address_1, address_2, city, province, zip_code, country, longitude, latitude, timezone)
+       values (${address_1}, ${address_2}, ${city}, ${province}, ${zip_code}, ${country}, ${location.lng}, ${location.lat}, ${timezone}) returning id`,
+          {...args, timezone, location}
       })
   }
 
-  static update(
-    id,
-    address_1,
-    address_2,
-    city,
-    region,
-    zip_code,
-    country
-  ) {
+  static update(args) {
     return db.none(
       `update addresses set
-       address_1 = coalesce($1, address_1),
-       address_2 = coalesce($2, address_2),
-       city = coalesce($3, city),
-       region = coalesce($4, region),
+       address_1 = coalesce(${address_1}, address_1),
+       address_2 = coalesce(${address_2}, address_2),
+       city = coalesce(${city}, city),
+       province = coalesce(${province}, province),
        zip_code = coalesce($5, zip_code),
        country = coalesce($6, country)
        where id = $7`,
-      [address_1, address_2, city, region, zip_code, country, id]
+      args
     )
       .then(res => this.findById(id))
       .then(address => {
@@ -76,7 +59,7 @@ class Address {
           address.address_1,
           address.address_2,
           address.city,
-          address.region,
+          address.province,
           address.zip_code,
           address.country
         )
