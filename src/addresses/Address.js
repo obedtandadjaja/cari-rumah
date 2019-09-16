@@ -36,8 +36,9 @@ class Address {
         const [timezone, location] = res
         return db.one(
           `insert into addresses (address_1, address_2, city, province, zip_code, country, longitude, latitude, timezone)
-       values (${address_1}, ${address_2}, ${city}, ${province}, ${zip_code}, ${country}, ${location.lng}, ${location.lat}, ${timezone}) returning id`,
+           values (${address_1}, ${address_2}, ${city}, ${province}, ${zip_code}, ${country}, ${location.lng}, ${location.lat}, ${timezone}) returning id`,
           {...args, timezone, location}
+        )
       })
   }
 
