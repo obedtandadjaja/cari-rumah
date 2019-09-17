@@ -3,7 +3,7 @@ import axios from 'axios'
 class AuthClient {
   static subject = 'cari-rumah'
 
-  static token = (identifier, password) => {
+  token = (identifier, password) => {
     return axios.post(
       `${process.env.AUTH_SERVICE_HOST}:${process.env.AUTH_SERVICE_PORT}/token`,
       JSON.stringify({
@@ -19,7 +19,7 @@ class AuthClient {
     )
   }
 
-  static verify = (jwt) => {
+  verify = (jwt) => {
     return axios.post(
       `${process.env.AUTH_SERVICE_HOST}:${process.env.AUTH_SERVICE_PORT}/verify`,
       JSON.stringify({

@@ -9,6 +9,10 @@ class User {
     return db.one(`select * from users where id=$1`, [id])
   }
 
+  static findByCredentialId(credential_id) {
+    return db.one(`select * from users where credential_id=$1`, [credential_id])
+  }
+
   static create(args) {
     return db.one(
       `insert into users (name, email, phone, notification_methods, credential_id)
