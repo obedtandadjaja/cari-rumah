@@ -19,7 +19,7 @@ const graphQL = new ApolloServer({
       .then(async(res) => await User.findByCredentialId(res.data.credential_id))
       .catch(err => null)
 
-    if (!user) {
+    if (!user && process.env.ENV !== 'dev') {
       throw new AuthenticationError('Invalid JWT; Unauthorized')
     }
 

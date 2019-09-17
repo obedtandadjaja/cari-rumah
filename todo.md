@@ -1,3 +1,4 @@
 - Need authorization middleware
 - Need to hook auth service to this backend proj
 - Use apollo server data structures to cache some common queries
+- Do whitelist on graphql handler as opposed to on per method basis
