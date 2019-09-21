@@ -7,10 +7,9 @@ import googleHandler from './src/handlers/google'
 import responseTimeMiddleware from './src/middlewares/response-time'
 import authenticationMiddleware from './src/middlewares/authentication'
 
-const whitelist = ['http://localhost']
 const corsOptions = {
   origin: (origin, callback) => {
-    if (whitelist.indexOf(origin) !== -1) {
+    if (origin.indexOf('http://localhost') !== -1) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
