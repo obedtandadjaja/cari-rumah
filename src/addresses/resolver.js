@@ -12,5 +12,9 @@ export default {
     createAddress: async(root, args, context) => await Address.create(args),
     updateAddress: async(root, args, context) => await Address.update(args),
   },
-  Address: {}
+  Address: {
+    full_address: (root, args, context) => {
+      return `${root.address_1} ${root.address_2}, ${root.city}, ${root.province} ${root.zip_code}`
+    }
+  }
 }

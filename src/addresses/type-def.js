@@ -10,6 +10,7 @@ export default `
     longitude: Float
     latitude: Float
     timezone: String
+    full_address: String
   }
 
   type Query {
