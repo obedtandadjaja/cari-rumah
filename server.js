@@ -7,7 +7,7 @@ import googleHandler from './src/handlers/google'
 import responseTimeMiddleware from './src/middlewares/response-time'
 import authenticationMiddleware from './src/middlewares/authentication'
 
-const whitelist = ['http://localhost:3000']
+const whitelist = ['http://localhost']
 const corsOptions = {
   origin: (origin, callback) => {
     if (process.env.ENV === 'dev' || whitelist.indexOf(origin) !== -1) {
