@@ -14,9 +14,9 @@ export default {
     listingsByAddressLatLongDistance: async(root, { lat, long, distance, sortBy, sortDirection }, context) => {
       // pg-promise task helps pools multiple queries to one db connection
       return await db.task(task => {
-        return Address.whereByLatLongDistance(task, lat, long, distance)
+        return Address.whereByLatLongDistance(lat, long, distance, {connection: task})
           .then(addresses => {
-            return Listing.whereByIds(task, addresses.map(address => address.id))
+            return Listing.whereByIds(addresses.map(address => address.id), {connection: task})
               .then(listings => {
                 return { addresses, listings }
               })
@@ -27,8 +27,6 @@ export default {
       }).then(data => {
         let { addresses, listings } = data
         let addressIdToObjectMap = {}
-
-        console.log(data)
 
         addresses.map(address => addressIdToObjectMap[address.id] = address)
         listings.map(listing => listing.address = addressIdToObjectMap[listing.address_id])

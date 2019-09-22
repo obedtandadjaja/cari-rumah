@@ -3,38 +3,38 @@ import getGeocode from './../google/maps/geocoding'
 import getTimezone from './../google/maps/timezone'
 
 class Address {
-  static findById(connection=db, id) {
-    return connection.one(`select * from addresses where id=$1`, [id])
+  static findById(id, options={connection: db}) {
+    return options.connection.one(`select * from addresses where id=$1`, [id])
   }
 
-  static whereByProvince(connection=db, province) {
-    return connection.any(`select * from addresses where province=$1`, [province])
+  static whereByProvince(province, options={connection: db}) {
+    return options.connection.any(`select * from addresses where province=$1`, [province])
   }
 
-  static whereByCity(connection=db, city) {
-    return connection.any(`select * from addresses where city=$1`, [city])
+  static whereByCity(city, options={connection: db}) {
+    return options.connection.any(`select * from addresses where city=$1`, [city])
   }
 
-  static whereByZipCode(connection=db, zipCode) {
-    return connection.any(`select * from addresses where zip_code=$1`, [zipCode])
+  static whereByZipCode(zipCode, options={connection: db}) {
+    return options.connection.any(`select * from addresses where zip_code=$1`, [zipCode])
   }
 
-  static whereByLatLongDistance(connection=db, lat, long, distanceInMiles) {
-    return connection.any(
+  static whereByLatLongDistance(lat, long, distanceInMiles, options={connection: db}) {
+    return options.connection.any(
       `select * from addresses
       where (point(latitude, longitude)::point <@> point($1, $2)) <= $3`,
       [lat, long, distanceInMiles]
     )
   }
 
-  static create(connection=db, args) {
+  static create(args, options={connection: db}) {
     return getGeocode(args.address_1, args.address_2, args.city, args.province, args.zip_code, args.country)
       .then((loc) => {
         return getTimezone(loc.lat, loc.lng).then(res => [res, loc])
       })
       .then((res) => {
         const [timezone, location] = res
-        return connection.one(
+        return options.connection.one(
           `insert into addresses (address_1, address_2, city, province, zip_code, country, longitude, latitude, timezone)
            values (${address_1}, ${address_2}, ${city}, ${province}, ${zip_code}, ${country}, ${location.lng}, ${location.lat}, ${timezone}) returning id`,
           {...args, timezone, location}
@@ -42,8 +42,8 @@ class Address {
       })
   }
 
-  static update(connection=db, args) {
-    return connection.none(
+  static update(args, options={connection: db}) {
+    return options.connection.none(
       `update addresses set
        address_1 = coalesce(${address_1}, address_1),
        address_2 = coalesce(${address_2}, address_2),
@@ -72,12 +72,11 @@ class Address {
         let timezone = res[0]
         let location = res[1]
 
-        return connection.none(
+        return options.connection.none(
           `update addresses set longitude = $1, latitude = $2, timezone = $3 where id = $4`,
           [location.lng, location.lat, timezone, id]
         )
       })
-      .then(res => true)
   }
 }
 
