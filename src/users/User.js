@@ -1,20 +1,20 @@
 import db from './../pg-adaptor'
 
 class User {
-  static all() {
-    return db.any(`select * from users`)
+  static all(connection=db) {
+    return connection.any(`select * from users`)
   }
 
-  static findById(id) {
-    return db.one(`select * from users where id=$1`, [id])
+  static findById(connection=db, id) {
+    return connection.one(`select * from users where id=$1`, [id])
   }
 
-  static findByCredentialId(credential_id) {
-    return db.one(`select * from users where credential_id=$1`, [credential_id])
+  static findByCredentialId(connection=db, credentialId) {
+    return connection.one(`select * from users where credential_id=$1`, [credentialId])
   }
 
-  static create(args) {
-    return db.one(
+  static create(connection=db, args) {
+    return connection.one(
       `insert into users (name, email, phone, notification_methods, credential_id)
        values (${name}, ${email}, ${phone}, ${notification_methods}, ${credential_id}) returning id`,
       args

@@ -1,3 +1,4 @@
+import db from './../pg-adaptor'
 import Listing from './Listing'
 import Address from './../addresses/Address'
 import User from './../users/User'
@@ -11,20 +12,29 @@ export default {
     listingsByAddresses: async(root, { address_ids }, context) => await Listing.whereByAddresses(address_ids),
 
     listingsByAddressLatLongDistance: async(root, { lat, long, distance, sortBy, sortDirection }, context) => {
-      let result = await Address.whereByLatLongDistance(lat, long, distance)
-        .then(async(addresses) => {
-          return await Promise.all(
-            addresses.map(async(address) => {
-              return await Listing.findByAddress(address.id)
-                .then(res => {
-                  res.address = address
-                  return res
-                })
-                .catch(err => null)
-            })
-          ).then(listings => listings.filter(listing => listing != null))
-        })
-      return result
+      // pg-promise task helps pools multiple queries to one db connection
+      return await db.task(task => {
+        return Address.whereByLatLongDistance(task, lat, long, distance)
+          .then(addresses => {
+            return Listing.whereByIds(task, addresses.map(address => address.id))
+              .then(listings => {
+                return { addresses, listings }
+              })
+              .catch(err => {
+                return { addresses: [], listings: [] }
+              })
+          })
+      }).then(data => {
+        let { addresses, listings } = data
+        let addressIdToObjectMap = {}
+
+        console.log(data)
+
+        addresses.map(address => addressIdToObjectMap[address.id] = address)
+        listings.map(listing => listing.address = addressIdToObjectMap[listing.address_id])
+
+        return listings
+      })
     },
 
     listingsByUserId: async(root, { user_id }, context) => await Listing.whereByUserId(user_id),
