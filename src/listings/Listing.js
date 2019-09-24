@@ -1,27 +1,33 @@
 import db from './../pg-adaptor'
 
+const defaultOptions = {
+  connection: db,
+  sortBy: 'id',
+  sortDirection: 'asc',
+}
+
 class Listing {
-  static findById(id, options={connection: db}) {
+  static findById(id, options=defaultOptions) {
     return options.connection.one(`select * from listings where id=$1`, [id])
   }
 
-  static whereByIds(ids, options={connection: db}) {
+  static whereByIds(ids, options=defaultOptions) {
     return options.connection.any(`select * from listings where address_id in ($1:csv)`, [ids])
   }
 
-  static findByAddress(address_id, options={connection: db}) {
+  static findByAddress(address_id, options=defaultOptions) {
     return options.connection.one(`select * from listings where address_id=$1`, [address_id])
   }
 
-  static whereByAddresses(address_ids, options={connection: db}) {
+  static whereByAddresses(address_ids, options=defaultOptions) {
     return options.connection.any(`select * from listings where address_id in ($1:csv)`, [address_ids])
   }
 
-  static whereByUserId(user_id, options={connection: db}) {
+  static whereByUserId(user_id, options=defaultOptions) {
     return options.connection.any(`select * from listings where user_id=$1`, [user_id])
   }
 
-  static create(args, options={connection: db}) {
+  static create(args, options=defaultOptions) {
     return options.connection.one(
       `insert into addresses (user_id, address_id, num_bedrooms, num_bathrooms, num_parking_lots, num_stories
        lot_size_m2, year_built, price_idr, description, display_picture_url, picture_urls, residential_type,
@@ -33,7 +39,7 @@ class Listing {
     )
   }
 
-  static update(args, options={connection: db}) {
+  static update(args, options=defaultOptions) {
     return options.connection.none(
       `update addresses set
        user_id = coalesce(${user_id}, user_id),

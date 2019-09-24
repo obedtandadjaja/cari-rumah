@@ -9,6 +9,11 @@ import authenticationMiddleware from './src/middlewares/authentication'
 
 const corsOptions = {
   origin: (origin, callback) => {
+    if (!origin) {
+      callback(null, true)
+      return
+    }
+
     if (origin.indexOf('http://localhost') !== -1) {
       callback(null, true)
     } else {
