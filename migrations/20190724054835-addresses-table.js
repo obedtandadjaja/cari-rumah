@@ -9,7 +9,6 @@ exports.up = (db, callback) => {
     country: { type: 'string' },
     longitude: { type: 'decimal' },
     latitude: { type: 'decimal' },
-    geography: { type: 'geography(point)' },
     timezone: { type: 'string' }
   }, callback)
 }
