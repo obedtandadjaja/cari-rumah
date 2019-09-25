@@ -7,4 +7,3 @@ Pagination:
   - if before present: add where <primary column> < <before>
   - if batchSize present: add limit <batchSize>
   - if orderby and orderdirection present: add order by <order by> <order direction>
-- export default options of each model
