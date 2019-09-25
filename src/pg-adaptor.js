@@ -1,6 +1,8 @@
 import pgPromise from 'pg-promise'
 
-const pgp = pgPromise({})
+const pgp = pgPromise({
+  query: (e) => console.log(e.query)
+})
 const config = {
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,

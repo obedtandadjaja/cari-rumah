@@ -11,8 +11,17 @@ class Listing {
     return options.connection.one(`select * from listings where id=$1`, [id])
   }
 
-  static whereByIds(ids, options=defaultOptions) {
-    return options.connection.any(`select * from listings where address_id in ($1:csv)`, [ids])
+  static whereByAddressIds(ids, options=defaultOptions) {
+    return options.connection.any(
+      'select * from listings \
+       where address_id in (${values.ids:csv}) \
+       order by ${options.sortBy:alias} ${options.sortDirection:alias} \
+       limit ${options.batchSize}',
+      {
+        values: { ids: ids },
+        options: options
+      }
+    )
   }
 
   static findByAddress(address_id, options=defaultOptions) {

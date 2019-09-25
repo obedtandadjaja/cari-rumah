@@ -11,16 +11,27 @@ export default {
 
     listingsByAddresses: async(root, { address_ids }, context) => await Listing.whereByAddresses(address_ids),
 
-    listingsByAddressLatLongDistance: async(root, { lat, long, distance, sortBy, sortDirection }, context) => {
+    listingsByAddressLatLongDistance: async(root, { lat, long, distance, sortBy, sortDirection, batchSize, before, after }, context) => {
       // pg-promise task helps pools multiple queries to one db connection
       return await db.task(task => {
         return Address.whereByLatLongDistance(lat, long, distance, {connection: task})
           .then(addresses => {
-            return Listing.whereByIds(addresses.map(address => address.id), {connection: task})
+            return Listing.whereByAddressIds(
+              addresses.map(address => address.id),
+              {
+                connection: task,
+                sortBy: sortBy || 'id',
+                sortDirection: sortDirection || 'asc',
+                batchSize: batchSize,
+                afterCursor: after,
+                beforeCursor: before
+              }
+            )
               .then(listings => {
                 return { addresses, listings }
               })
               .catch(err => {
+                console.log(err)
                 return { addresses: [], listings: [] }
               })
           })

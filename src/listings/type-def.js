@@ -36,7 +36,8 @@ export default `
       sortBy: ListingSortBy,
       sortDirection: SortDirection,
       batchSize: Int,
-      cursor: String
+      before: String,
+      after: String
     ): [Listing]
     listingsByUserId(user_id: ID!): [Listing]
   }
