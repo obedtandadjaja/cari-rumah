@@ -1,7 +1,7 @@
 import db from './../pg-adaptor'
-import Listing from './Listing'
-import Address from './../addresses/Address'
-import User from './../users/User'
+import { listingDefaultOptions, Listing } from './Listing'
+import { addressDefaultOptions, Address } from './../addresses/Address'
+import { userDefaultOptions, User } from './../users/User'
 
 export default {
   Query: {

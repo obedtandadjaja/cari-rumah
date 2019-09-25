@@ -1,17 +1,17 @@
 import db from './../pg-adaptor'
 
-const defaultOptions = {
+export const listingDefaultOptions = {
   connection: db,
   sortBy: 'id',
   sortDirection: 'asc',
 }
 
-class Listing {
-  static findById(id, options=defaultOptions) {
+export class Listing {
+  static findById(id, options=listingDefaultOptions) {
     return options.connection.one(`select * from listings where id=$1`, [id])
   }
 
-  static whereByAddressIds(ids, options=defaultOptions) {
+  static whereByAddressIds(ids, options=listingDefaultOptions) {
     return options.connection.any(
       'select * from listings \
        where address_id in (${values.ids:csv}) \
@@ -24,19 +24,19 @@ class Listing {
     )
   }
 
-  static findByAddress(address_id, options=defaultOptions) {
+  static findByAddress(address_id, options=listingDefaultOptions) {
     return options.connection.one(`select * from listings where address_id=$1`, [address_id])
   }
 
-  static whereByAddresses(address_ids, options=defaultOptions) {
+  static whereByAddresses(address_ids, options=listingDefaultOptions) {
     return options.connection.any(`select * from listings where address_id in ($1:csv)`, [address_ids])
   }
 
-  static whereByUserId(user_id, options=defaultOptions) {
+  static whereByUserId(user_id, options=listingDefaultOptions) {
     return options.connection.any(`select * from listings where user_id=$1`, [user_id])
   }
 
-  static create(args, options=defaultOptions) {
+  static create(args, options=listingDefaultOptions) {
     return options.connection.one(
       `insert into addresses (user_id, address_id, num_bedrooms, num_bathrooms, num_parking_lots, num_stories
        lot_size_m2, year_built, price_idr, description, display_picture_url, picture_urls, residential_type,
@@ -48,7 +48,7 @@ class Listing {
     )
   }
 
-  static update(args, options=defaultOptions) {
+  static update(args, options=listingDefaultOptions) {
     return options.connection.none(
       `update addresses set
        user_id = coalesce(${user_id}, user_id),
@@ -69,5 +69,3 @@ class Listing {
     )
   }
 }
-
-export default Listing

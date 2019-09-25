@@ -2,30 +2,30 @@ import db from './../pg-adaptor'
 import getGeocode from './../google/maps/geocoding'
 import getTimezone from './../google/maps/timezone'
 
-const defaultOptions = {
+export const addressDefaultOptions = {
   connection: db,
   sortBy: 'id',
   sortDirection: 'asc'
 }
 
-class Address {
-  static findById(id, options=defaultOptions) {
+export class Address {
+  static findById(id, options=addressDefaultOptions) {
     return options.connection.one(`select * from addresses where id=$1`, [id])
   }
 
-  static whereByProvince(province, options=defaultOptions) {
+  static whereByProvince(province, options=addressDefaultOptions) {
     return options.connection.any(`select * from addresses where province=$1`, [province])
   }
 
-  static whereByCity(city, options=defaultOptions) {
+  static whereByCity(city, options=addressDefaultOptions) {
     return options.connection.any(`select * from addresses where city=$1`, [city])
   }
 
-  static whereByZipCode(zipCode, options=defaultOptions) {
+  static whereByZipCode(zipCode, options=addressDefaultOptions) {
     return options.connection.any(`select * from addresses where zip_code=$1`, [zipCode])
   }
 
-  static whereByLatLongDistance(lat, long, distanceInMiles, options=defaultOptions) {
+  static whereByLatLongDistance(lat, long, distanceInMiles, options=addressDefaultOptions) {
     return options.connection.any(
       `select * from addresses
       where (point(latitude, longitude)::point <@> point($1, $2)) <= $3`,
@@ -33,7 +33,7 @@ class Address {
     )
   }
 
-  static create(args, options=defaultOptions) {
+  static create(args, options=addressDefaultOptions) {
     return getGeocode(args.address_1, args.address_2, args.city, args.province, args.zip_code, args.country)
       .then((loc) => {
         return getTimezone(loc.lat, loc.lng).then(res => [res, loc])
@@ -48,7 +48,7 @@ class Address {
       })
   }
 
-  static update(args, options=defaultOptions) {
+  static update(args, options=addressDefaultOptions) {
     return options.connection.none(
       `update addresses set
        address_1 = coalesce(${address_1}, address_1),
@@ -85,5 +85,3 @@ class Address {
       })
   }
 }
-
-export default Address
