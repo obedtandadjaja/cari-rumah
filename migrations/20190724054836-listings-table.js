@@ -1,11 +1,19 @@
 exports.up = (db, callback) => {
   function addAddressIdIndex(err) {
-    if(err) { callback(err); return; }
+    if (err) {
+      callback(err)
+      return
+    }
+
     db.addIndex('listings', 'listings_address_id_idx', 'address_id', callback)
   }
 
   function addUserIdIndex(err) {
-    if(err) { callback(err); return; }
+    if (err) {
+      callback(err)
+      return
+    }
+
     db.addIndex('listings', 'listings_user_id_idx', 'user_id', addAddressIdIndex)
   }
 

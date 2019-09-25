@@ -1,4 +1,13 @@
 exports.up = (db, callback) => {
+  function addGeometryIndex(err) {
+    if (err) {
+      callback(err)
+      return
+    }
+
+    db.runSql('create index addresses_geometry_idx on addresses using gist(geometry)', callback)
+  }
+
   db.createTable('addresses', {
     id: { type: 'int', unsigned: true, notNull: true, primaryKey: true, autoIncrement: true },
     address_1: { type: 'string' },
@@ -9,8 +18,9 @@ exports.up = (db, callback) => {
     country: { type: 'string' },
     longitude: { type: 'decimal' },
     latitude: { type: 'decimal' },
+    geometry: { type: 'geometry(geometry, 3857)' },
     timezone: { type: 'string' }
-  }, callback)
+  }, addGeometryIndex)
 }
 
 exports.down = (db, callback) => {}
