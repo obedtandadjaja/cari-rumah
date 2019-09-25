@@ -11,6 +11,7 @@ export default `
     latitude: Float
     timezone: String
     full_address: String
+    pagination: Pagination
   }
 
   type Query {

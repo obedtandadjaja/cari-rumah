@@ -16,6 +16,7 @@ export default `
     type: String
     address: Address
     user: User
+    pagination: Pagination
   }
 
   enum ListingSortBy {
@@ -33,7 +34,9 @@ export default `
       long: Float!,
       distance: Float!,
       sortBy: ListingSortBy,
-      sortDirection: SortDirection
+      sortDirection: SortDirection,
+      batchSize: Int,
+      cursor: String
     ): [Listing]
     listingsByUserId(user_id: ID!): [Listing]
   }
