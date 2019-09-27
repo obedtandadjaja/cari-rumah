@@ -20,11 +20,11 @@ export default {
               addresses.map(address => address.id),
               {
                 connection: task,
-                sortBy: args.sortBy || 'id',
-                sortDirection: args.sortDirection || 'asc',
-                batchSize: args.batchSize,
-                afterCursor: args.after,
-                beforeCursor: args.before
+                sortBy: args.sortBy || listingDefaultOptions.sortBy,
+                sortDirection: args.sortDirection || listingDefaultOptions.sortDirection,
+                batchSize: args.batchSize || listingDefaultOptions.batchSize,
+                after: args.after,
+                before: args.before
               }
             )
               .then(listings => {
@@ -48,9 +48,9 @@ export default {
     listingsByUserId: async(root, { user_id }, context) => await Listing.whereByUserId(user_id),
   },
   Mutation: {
-    createListing: async(root, args, context) => await Listing.create(args),
+    createListing: async(root, { listing }, context) => await Listing.create(listing),
 
-    updateListing: async(root, args, context) => await Listing.update(args),
+    updateListing: async(root, { listing }, context) => await Listing.update(listing),
   },
   Listing: {
     address: async(root, args, context) => {

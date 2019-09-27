@@ -1,5 +1,5 @@
 export default `
-  type Listing {
+  type Listing implements Node {
     id: ID!
     user_id: ID
     address_id: ID
@@ -16,7 +16,6 @@ export default `
     type: String
     address: Address
     user: User
-    pagination: Pagination
   }
 
   enum ListingSortBy {
@@ -38,41 +37,17 @@ export default `
       batchSize: Int,
       before: String,
       after: String
-    ): [Listing]
+    ): ListingConnection
     listingsByUserId(user_id: ID!): [Listing]
   }
 
+  type ListingConnection {
+    edges: [ListingEdge]
+    pageInfo: PageInfo!
+  }
+
   type Mutation {
-    createListing(
-      user_id: ID!,
-      address_id: ID!,
-      num_bedrooms: Float,
-      num_bathrooms: Float,
-      num_parking_lots: Float,
-      num_stories: Float,
-      lot_size_m2: Float,
-      year_built: Int,
-      price_idr: Int,
-      description: String,
-      display_picture_url: String,
-      residential_type: String,
-      type: String
-    ): Listing
-    updateListing(
-      id: ID!
-      user_id: ID,
-      address_id: ID,
-      num_bedrooms: Float,
-      num_bathrooms: Float,
-      num_parking_lots: Float,
-      num_stories: Float,
-      lot_size_m2: Float,
-      year_built: Int,
-      price_idr: Int,
-      description: String,
-      display_picture_url: String,
-      residential_type: String,
-      type: String
-    ): Boolean
+    createListing(listing: Listing): Listing
+    updateListing(listing: Listing): Boolean
   }
 `

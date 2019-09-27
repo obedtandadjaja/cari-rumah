@@ -4,10 +4,14 @@ export default `
     DESC
   }
 
-  type Pagination {
+  type PageInfo {
     endCursor: String
-    hasNextPage: Boolean
-    hasPrevPage: Boolean
+    hasNextPage: Boolean!
+    hasPrevPage: Boolean!
     startCursor: String
+  }
+
+  interface Node {
+    id: ID!
   }
 `
