@@ -1,4 +1,5 @@
 import db from './../pg-adaptor'
+import { constructSQL } from './../common/sqlConstructor'
 
 export const listingDefaultOptions = {
   connection: db,
@@ -13,10 +14,7 @@ export class Listing {
 
   static whereByAddressIds(ids, options=listingDefaultOptions) {
     return options.connection.any(
-      'select * from listings \
-       where address_id in (${values.ids:csv}) \
-       order by ${options.sortBy:alias} ${options.sortDirection:alias} \
-       limit ${options.batchSize}',
+      constructSQL('select * from listings where address_id in (${values.ids:csv})', options),
       {
         values: { ids: ids },
         options: options
