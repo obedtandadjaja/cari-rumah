@@ -5,10 +5,8 @@ export default `
   }
 
   type PageInfo {
-    endCursor: String
-    hasNextPage: Boolean!
-    hasPrevPage: Boolean!
     startCursor: String
+    endCursor: String
   }
 
   interface Node {

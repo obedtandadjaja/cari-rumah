@@ -52,8 +52,8 @@ export default `
   }
 
   type Mutation {
-    createListing(listing: ListingInput): Listing
-    updateListing(listing: ListingInput): Boolean
+    createListing(listing: ListingInput): Listing!
+    updateListing(listing: ListingInput): Boolean!
   }
 
   input ListingInput {

@@ -2,6 +2,7 @@ import db from './../pg-adaptor'
 import { listingDefaultOptions, Listing } from './Listing'
 import { addressDefaultOptions, Address } from './../addresses/Address'
 import { userDefaultOptions, User } from './../users/User'
+import { encodeCursor, decodeCursor } from './../common/cursorHelper'
 
 export default {
   Query: {
