@@ -47,11 +47,13 @@ export default {
 
     listingsByUserId: async(root, { user_id }, context) => await Listing.whereByUserId(user_id),
   },
+
   Mutation: {
     createListing: async(root, { listing }, context) => await Listing.create(listing),
 
     updateListing: async(root, { listing }, context) => await Listing.update(listing),
   },
+
   Listing: {
     address: async(root, args, context) => {
       if (root.address)
@@ -66,5 +68,22 @@ export default {
 
       await User.findById(root.user_id)
     }
+  },
+
+  ListingConnection: {
+    edges: async(root, args, context) => root,
+
+    pageInfo: async(root, args, context) => {
+      return {
+        hasNextPage: false,
+        hasPrevPage: false
+      }
+    }
+  },
+
+  ListingEdge: {
+    node: async(root, args, context) => root,
+
+    cursor: async(root, args, context) => 'abcd'
   }
 }

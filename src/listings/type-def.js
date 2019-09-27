@@ -46,8 +46,30 @@ export default `
     pageInfo: PageInfo!
   }
 
+  type ListingEdge {
+    node: Listing
+    cursor: String!
+  }
+
   type Mutation {
-    createListing(listing: Listing): Listing
-    updateListing(listing: Listing): Boolean
+    createListing(listing: ListingInput): Listing
+    updateListing(listing: ListingInput): Boolean
+  }
+
+  input ListingInput {
+    id: ID!
+    user_id: ID
+    address_id: ID
+    num_bedrooms: Float
+    num_bathrooms: Float
+    num_parking_spots: Float
+    lot_size_m2: Float
+    num_stories: Float
+    year_built: Int
+    price_idr: Int
+    description: String
+    display_picture_url: String
+    residential_type: String
+    type: String
   }
 `
