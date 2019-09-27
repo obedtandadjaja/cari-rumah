@@ -5,7 +5,9 @@ export default `
   }
 
   type Pagination {
-    startCursor: String
     endCursor: String
+    hasNextPage: Boolean
+    hasPrevPage: Boolean
+    startCursor: String
   }
 `
