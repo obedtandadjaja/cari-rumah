@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migrate": "node-pg-migrate",
+    "migrate": "db-migrate up",
+    "seed": "babel-node --presets es2015 ./migrations/seed/seed.js",
     "start": "node -r dotenv/config index.js"
   },
   "repository": {
@@ -22,6 +23,7 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/register": "^7.5.5",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
