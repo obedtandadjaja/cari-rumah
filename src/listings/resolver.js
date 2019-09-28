@@ -13,8 +13,8 @@ export default {
     listingsByAddresses: async(root, { address_ids }, context) => await Listing.whereByAddresses(address_ids),
 
     listingsByAddressLatLongDistance: async(root, args, context) => {
-      args.batchSize = (args.pagination.batchSize || listingDefaultOptions.batchSize)
-      args.sortBy = (args.sortBy || listingDefaultOptions.sortBy)
+      context.batchSize = (args.pagination.batchSize || listingDefaultOptions.batchSize)
+      context.sortBy = (args.sortBy || listingDefaultOptions.sortBy)
 
       // pg-promise task helps pools multiple queries to one db connection
       return await db.task(task => {
@@ -27,7 +27,7 @@ export default {
                 sortBy: args.sortBy || listingDefaultOptions.sortBy,
                 sortDirection: args.sortDirection || listingDefaultOptions.sortDirection,
                 // get one more from the DB to determine if there is a nextPage
-                batchSize: (args.pagination.batchSize || listingDefaultOptions.batchSize) + 1,
+                batchSize: args.pagination.batchSize + 1,
                 after: decodeCursor(args.pagination.after)
               }
             )
@@ -75,15 +75,17 @@ export default {
   },
 
   ListingConnection: {
-    edges: async(root, args, context) => root.slice(0, args.batchSize),
+    edges: async(root, args, context) => {
+      return root.slice(0, context.batchSize)
+    },
 
     pageInfo: async(root, args, context) => {
       let endCursor = null
 
-      if (root.length > args.batchSize) {
+      if (root.length > context.batchSize) {
         endCursor = encodeCursor({
-          column: args.sortBy,
-          value: root[args.sortBy]
+          column: context.sortBy,
+          value: root[context.batchSize - 1][context.sortBy]
         })
       }
 
@@ -96,8 +98,8 @@ export default {
 
     cursor: async(root, args, context) => {
       return encodeCursor({
-        column: args.sortBy,
-        value: root[args.sortBy]
+        column: context.sortBy,
+        value: root[context.sortBy]
       })
     }
   }
