@@ -13,6 +13,9 @@ export default {
     listingsByAddresses: async(root, { address_ids }, context) => await Listing.whereByAddresses(address_ids),
 
     listingsByAddressLatLongDistance: async(root, args, context) => {
+      args.batchSize = (args.pagination.batchSize || listingDefaultOptions.batchSize)
+      args.sortBy = (args.sortBy || listingDefaultOptions.sortBy)
+
       // pg-promise task helps pools multiple queries to one db connection
       return await db.task(task => {
         return Address.whereByLatLongDistance(args.lat, args.long, args.distance, {connection: task})
@@ -23,9 +26,9 @@ export default {
                 connection: task,
                 sortBy: args.sortBy || listingDefaultOptions.sortBy,
                 sortDirection: args.sortDirection || listingDefaultOptions.sortDirection,
-                batchSize: args.batchSize || listingDefaultOptions.batchSize,
-                after: args.after,
-                before: args.before
+                // get one more from the DB to determine if there is a nextPage
+                batchSize: (args.pagination.batchSize || listingDefaultOptions.batchSize) + 1,
+                after: decodeCursor(args.pagination.after)
               }
             )
               .then(listings => {
@@ -72,19 +75,30 @@ export default {
   },
 
   ListingConnection: {
-    edges: async(root, args, context) => root,
+    edges: async(root, args, context) => root.slice(0, args.batchSize),
 
     pageInfo: async(root, args, context) => {
-      // return {
-      //   startCursor: ,
-      //   endCursor: await
-      // }
+      let endCursor = null
+
+      if (root.length > args.batchSize) {
+        endCursor = encodeCursor({
+          column: args.sortBy,
+          value: root[args.sortBy]
+        })
+      }
+
+      return { endCursor: endCursor }
     }
   },
 
   ListingEdge: {
     node: async(root, args, context) => root,
 
-    cursor: async(root, args, context) => 'abcd'
+    cursor: async(root, args, context) => {
+      return encodeCursor({
+        column: args.sortBy,
+        value: root[args.sortBy]
+      })
+    }
   }
 }
