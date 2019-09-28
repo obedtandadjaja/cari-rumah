@@ -41,8 +41,8 @@ export class Address {
       .then((res) => {
         const [timezone, location] = res
         return options.connection.one(
-          `insert into addresses (address_1, address_2, city, province, zip_code, country, longitude, latitude, timezone)
-           values (${address_1}, ${address_2}, ${city}, ${province}, ${zip_code}, ${country}, ${location.lng}, ${location.lat}, ${timezone}) returning id`,
+          `insert into addresses (address_1, address_2, city, province, zip_code, country, longitude, latitude, geometry, timezone)
+           values (${address_1}, ${address_2}, ${city}, ${province}, ${zip_code}, ${country}, ${location.lng}, ${location.lat}, ST_SetSRID(ST_MakePoint(${location.lng}, ${location.lat}), 3857), ${timezone}) returning id`,
           {...args, timezone, location}
         )
       })

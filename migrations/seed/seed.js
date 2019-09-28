@@ -210,7 +210,7 @@ async function seedData() {
 
   let address_ids = await Promise.all(
     addressesData.map(async(address) => {
-      await db.one('insert into addresses(address_1, latitude, longitude) values ($1, $2, $3) returning id', [address.formatted_address, address.geometry.location.lat, address.geometry.location.lng])
+      await db.one('insert into addresses(address_1, latitude, longitude, geometry) values ($1, $2, $3, ST_SetSRID(ST_MakePoint($3, $2), 3857)) returning id', [address.formatted_address, address.geometry.location.lat, address.geometry.location.long])
         .then(res => res.id)
         .catch(err => console.log(err))
     })

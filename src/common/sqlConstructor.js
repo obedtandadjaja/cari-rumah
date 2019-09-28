@@ -4,12 +4,12 @@ export function constructSQL(baseSQL, { after, before, sortBy, sortDirection, ba
 
   if (after) {
     sql += whereClauseExists ? ' and ' : ' where '
-    sql += '${options.after.column:alias} > ${options.after.value:raw}'
+    sql += '${options.after.column:alias} > ${options.after.value}'
   }
 
   if (before) {
     sql += whereClauseExists ? ' and ' : ' where '
-    sql += '${options.after.column:alias} < ${options.after.value:raw}'
+    sql += '${options.after.column:alias} < ${options.after.value}'
   }
 
   if (sortBy && sortDirection) {
