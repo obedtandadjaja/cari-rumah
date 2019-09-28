@@ -1,8 +1,8 @@
 - Use apollo server data structures to cache some common queries
 - Do whitelist on graphql handler as opposed to on per method basis
 
-- database seed
 - hook up account creation to credential creation
+- look up by geometry within rather than distance radius
 
 CORE features:
 - search functionality
