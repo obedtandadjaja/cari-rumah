@@ -5,11 +5,15 @@ export default `
   }
 
   type PageInfo {
-    startCursor: String
     endCursor: String
   }
 
   interface Node {
     id: ID!
+  }
+
+  input PaginationInput {
+    after: String
+    batchSize: Int!
   }
 `

@@ -3,6 +3,3 @@
 
 09/28
 - do implementation on pagination
-- skip backwards pagination for now
-  - remove before from query
-  - remove hasPrevPage from pagination result

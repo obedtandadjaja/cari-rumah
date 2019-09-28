@@ -34,9 +34,7 @@ export default `
       distance: Float!,
       sortBy: ListingSortBy,
       sortDirection: SortDirection,
-      batchSize: Int,
-      before: String,
-      after: String
+      pagination: PaginationInput
     ): ListingConnection
     listingsByUserId(user_id: ID!): [Listing]
   }
