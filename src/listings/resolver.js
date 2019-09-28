@@ -75,10 +75,10 @@ export default {
     edges: async(root, args, context) => root,
 
     pageInfo: async(root, args, context) => {
-      return {
-        hasNextPage: false,
-        hasPrevPage: false
-      }
+      // return {
+      //   startCursor: ,
+      //   endCursor: await
+      // }
     }
   },
 
