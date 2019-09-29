@@ -18,7 +18,7 @@ export default {
 
       // pg-promise task helps pools multiple queries to one db connection
       return await db.task(task => {
-        return Address.whereByLatLongDistance(args.lat, args.long, args.distance, {connection: task})
+        return Address.whereByLatLongRectangle(args, {connection: task})
           .then(addresses => {
             return Listing.whereByAddressIds(
               addresses.map(address => address.id),
@@ -50,6 +50,43 @@ export default {
     },
 
     listingsByUserId: async(root, { user_id }, context) => await Listing.whereByUserId(user_id),
+
+    listingsByAddressLatLongRectangle: async(root, args, context) => {
+      context.batchSize = (args.pagination.batchSize || listingDefaultOptions.batchSize)
+      context.sortBy = (args.sortBy || listingDefaultOptions.sortBy)
+
+      // pg-promise task helps pools multiple queries to one db connection
+      return await db.task(task => {
+        return Address.whereByLatLongDistance(args.lat, args.long, args.distance, {connection: task})
+          .then(addresses => {
+            return Listing.whereByAddressIds(
+              addresses.map(address => address.id),
+              {
+                connection: task,
+                sortBy: args.sortBy || listingDefaultOptions.sortBy,
+                sortDirection: args.sortDirection || listingDefaultOptions.sortDirection,
+                // get one more from the DB to determine if there is a nextPage
+                batchSize: args.pagination.batchSize + 1,
+                after: decodeCursor(args.pagination.after)
+              }
+            )
+              .then(listings => {
+                return { addresses, listings }
+              })
+              .catch(err => {
+                return { addresses: [], listings: [] }
+              })
+          })
+      }).then(data => {
+        let { addresses, listings } = data
+        let addressIdToObjectMap = {}
+
+        addresses.map(address => addressIdToObjectMap[address.id] = address)
+        listings.map(listing => listing.address = addressIdToObjectMap[listing.address_id])
+
+        return listings
+      })
+    },
   },
 
   Mutation: {

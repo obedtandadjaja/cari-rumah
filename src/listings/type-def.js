@@ -37,6 +37,13 @@ export default `
       pagination: PaginationInput
     ): ListingConnection
     listingsByUserId(user_id: ID!): [Listing]
+    listingsByAddressLatLongRectangle(
+      ne: Coordinate!,
+      sw: Coordinate!,
+      sortBy: ListingSortBy,
+      sortDirection: SortDirection,
+      pagination: PaginationInput
+    ): ListingConnection
   }
 
   type ListingConnection {
