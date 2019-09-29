@@ -18,7 +18,7 @@ export default {
 
       // pg-promise task helps pools multiple queries to one db connection
       return await db.task(task => {
-        return Address.whereByLatLongRectangle(args, {connection: task})
+        return Address.whereByLatLongRectangle(args.lat, args.long, args.distance, {connection: task})
           .then(addresses => {
             return Listing.whereByAddressIds(
               addresses.map(address => address.id),
@@ -57,7 +57,7 @@ export default {
 
       // pg-promise task helps pools multiple queries to one db connection
       return await db.task(task => {
-        return Address.whereByLatLongDistance(args.lat, args.long, args.distance, {connection: task})
+        return Address.whereByLatLongRectangle(args, {connection: task})
           .then(addresses => {
             return Listing.whereByAddressIds(
               addresses.map(address => address.id),

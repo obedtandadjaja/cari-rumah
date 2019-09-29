@@ -208,15 +208,16 @@ const listingData = {
 async function seedData() {
   let user_id = await db.one('insert into users(name, email, phone, notification_methods) values ($1, $2, $3, $4) returning id', [userData.name, userData.email, userData.phone, userData.notification_methods]).then(res => res.id)
 
-  let address_ids = await Promise.all(
+  let address_ids = []
+  await Promise.all(
     addressesData.map(async(address) => {
       await db.one('insert into addresses(address_1, latitude, longitude, geometry) values ($1, $2, $3, ST_SetSRID(ST_MakePoint($3, $2), 3857)) returning id', [address.formatted_address, address.geometry.location.lat, address.geometry.location.long])
-        .then(res => res.id)
+        .then(res => address_ids.push(res.id))
         .catch(err => console.log(err))
     })
   )
 
-  address_ids.map((address_id) => {
+  address_ids.map(address_id => {
     db.none('insert into listings(num_bedrooms, num_bathrooms, num_parking_spots, lot_size_m2, num_stories, year_built, price_idr, description, display_picture_url, residential_type, type, user_id, address_id) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)', [listingData.num_bedrooms, listingData.num_bathrooms, listingData.num_parking_spots, listingData.lot_size_m2, listingData.num_stories, listingData.year_built, listingData.price_idr, listingData.description, listingData.display_picture_url, listingData.residential_type, listingData.type, user_id, address_id])
   })
 }
