@@ -19,6 +19,7 @@ export default `
     addressesByCity(city: String): [Address]
     addressesByZipCode(zip_code: String): [Address]
     addressesByLatLongDistance(lat: Float, long: Float, distance: Float): [Address]
+    addressesByLatLongRectangle(ne: Coordinate!, sw: Coordinate!): [Address]
   }
 
   type Mutation {

@@ -27,9 +27,20 @@ export class Address {
 
   static whereByLatLongDistance(lat, long, distanceInMiles, options=addressDefaultOptions) {
     return options.connection.any(
-      `select * from addresses
-      where (point(latitude, longitude)::point <@> point($1, $2)) <= $3`,
+      'select * from addresses\
+      where (point(latitude, longitude)::point <@> point($1, $2)) <= $3',
       [lat, long, distanceInMiles]
+    )
+  }
+
+  static whereByLatLongRectangle(args, options=addressDefaultOptions) {
+    return options.connection.any(
+      'select *\
+      from addresses\
+      inner join (\
+        select ST_MakeEnvelope(${sw.long}, ${sw.lat}, ${ne.long}, ${ne.lat}, 3857) as enclosure\
+      ) as rectangle on ST_Within(addresses.geometry, rectangle.enclosure)',
+      args
     )
   }
 

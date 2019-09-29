@@ -7,6 +7,7 @@ export default {
     addressesByCity: async(root, { city }, context) => await Address.whereByCity(city),
     addressesByZipCode: async(root, { zip_code }, context) => await Address.whereByZipCode(zip_code),
     addressesByLatLongDistance: async(root, { lat, long, distance }, context) => await Address.whereByLatLongDistance(lat, long, distance),
+    addressesByLatLongRectange: async(root, args, context) => await Address.whereByLatLongRectangle(args)
   },
   Mutation: {
     createAddress: async(root, args, context) => await Address.create(args),
