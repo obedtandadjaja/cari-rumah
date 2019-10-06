@@ -42,7 +42,8 @@ export default `
       sw: Coordinate!,
       sortBy: ListingSortBy,
       sortDirection: SortDirection,
-      pagination: PaginationInput
+      pagination: PaginationInput,
+      filter: ListingFilter
     ): ListingConnection
   }
 
@@ -74,6 +75,19 @@ export default `
     price_idr: Int
     description: String
     display_picture_url: String
+    residential_type: String
+    type: String
+  }
+
+  input ListingFilter {
+    price_idr_min: Int
+    price_idr_max: Int
+    num_bedrooms_min: Float
+    num_bedrooms_max: Float
+    num_bathrooms_min: Float
+    num_bathrooms_max: Float
+    year_built_min: Float
+    year_built_max: Float
     residential_type: String
     type: String
   }

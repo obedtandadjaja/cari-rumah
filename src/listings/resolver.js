@@ -28,7 +28,8 @@ export default {
                 sortDirection: args.sortDirection || listingDefaultOptions.sortDirection,
                 // get one more from the DB to determine if there is a nextPage
                 batchSize: args.pagination.batchSize + 1,
-                after: decodeCursor(args.pagination.after)
+                after: decodeCursor(args.pagination.after),
+                where: args.filter,
               }
             )
               .then(listings => {
@@ -55,6 +56,8 @@ export default {
       context.batchSize = (args.pagination.batchSize || listingDefaultOptions.batchSize)
       context.sortBy = (args.sortBy || listingDefaultOptions.sortBy)
 
+      console.log(args.filter)
+
       // pg-promise task helps pools multiple queries to one db connection
       return await db.task(task => {
         return Address.whereByLatLongRectangle(args, {connection: task})
@@ -67,7 +70,8 @@ export default {
                 sortDirection: args.sortDirection || listingDefaultOptions.sortDirection,
                 // get one more from the DB to determine if there is a nextPage
                 batchSize: args.pagination.batchSize + 1,
-                after: decodeCursor(args.pagination.after)
+                after: decodeCursor(args.pagination.after),
+                where: args.filter,
               }
             )
               .then(listings => {
