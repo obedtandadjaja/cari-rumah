@@ -27,7 +27,7 @@ export default {
                 sortBy: args.sortBy || listingDefaultOptions.sortBy,
                 sortDirection: args.sortDirection || listingDefaultOptions.sortDirection,
                 // get one more from the DB to determine if there is a nextPage
-                batchSize: args.pagination.batchSize + 1,
+                batchSize: context.batchSize + 1,
                 after: decodeCursor(args.pagination.after),
                 where: args.filter,
               }
@@ -53,10 +53,15 @@ export default {
     listingsByUserId: async(root, { user_id }, context) => await Listing.whereByUserId(user_id),
 
     listingsByAddressLatLongRectangle: async(root, args, context) => {
-      context.batchSize = (args.pagination.batchSize || listingDefaultOptions.batchSize)
-      context.sortBy = (args.sortBy || listingDefaultOptions.sortBy)
-
-      console.log(args.filter)
+      if (args.pagination) {
+        context.batchSize = (args.pagination.batchSize || listingDefaultOptions.batchSize)
+        context.sortBy = (args.sortBy || listingDefaultOptions.sortBy)
+      } else {
+        // default to showing 100 listings max when no pagination found
+        // this case will is used to show listings markers in the map on cari-rumah-react
+        // so currently only showing 100 markers on the map max
+        context.batchSize = 100
+      }
 
       // pg-promise task helps pools multiple queries to one db connection
       return await db.task(task => {
@@ -69,8 +74,8 @@ export default {
                 sortBy: args.sortBy || listingDefaultOptions.sortBy,
                 sortDirection: args.sortDirection || listingDefaultOptions.sortDirection,
                 // get one more from the DB to determine if there is a nextPage
-                batchSize: args.pagination.batchSize + 1,
-                after: decodeCursor(args.pagination.after),
+                batchSize: context.batchSize + 1,
+                after: args.pagination && decodeCursor(args.pagination.after) || null,
                 where: args.filter,
               }
             )
