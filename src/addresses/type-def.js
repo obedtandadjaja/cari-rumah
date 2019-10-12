@@ -4,7 +4,10 @@ export default `
     address_1: String
     address_2: String
     city: String
-    province: String
+    administrative_area_level_1: String
+    administrative_area_level_2: String
+    administrative_area_level_3: String
+    administrative_area_level_4: String
     zip_code: String
     country: String
     longitude: Float
@@ -23,22 +26,22 @@ export default `
   }
 
   type Mutation {
-    createAddress(
-      address_1: String!,
-      address_2: String,
-      city: String!,
-      province: String!,
-      zip_code: String,
-      country: String!
-    ): Address
-    updateAddress(
-      id: ID!,
-      address_1: String,
-      address_2: String,
-      city: String,
-      province: String,
-      zip_code: String,
-      country: String
-    ): Boolean
+    createAddress(address: AddressInput): Address!
+    updateAddress(address: AddressInput): Boolean!
+  }
+
+  input AddressInput {
+    id: ID
+    address_1: String
+    address_2: String
+    city: String
+    administrative_area_level_1: String
+    administrative_area_level_2: String
+    administrative_area_level_3: String
+    administrative_area_level_4: String
+    zip_code: String
+    country: String
+    longitude: Float
+    latitude: Float
   }
 `

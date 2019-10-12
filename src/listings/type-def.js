@@ -64,7 +64,7 @@ export default `
   }
 
   input ListingInput {
-    id: ID!
+    id: ID
     user_id: ID
     address_id: ID
     num_bedrooms: Float
