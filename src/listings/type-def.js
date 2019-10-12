@@ -12,6 +12,7 @@ export default `
     price_idr: Int
     description: String
     display_picture_url: String
+    picture_urls: [String]
     residential_type: String
     type: String
     address: Address
