@@ -22,5 +22,9 @@ export default `
       phone: String!,
       notification_methods: [String]!
     ): User
+    saveListing(
+      user_id: ID!,
+      listing_id: ID!
+    ): Boolean
   }
 `

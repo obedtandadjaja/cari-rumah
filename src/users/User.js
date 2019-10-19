@@ -26,4 +26,11 @@ export class User {
       args
     )
   }
+
+  static saveListing(listing_id, user_id, options=userDefaultOptions) {
+    return options.connection.none(
+      `update users set saved_listing_ids = saved_listing_ids || $1 where id = $2`,
+      [listing_id, user_id]
+    )
+  }
 }
