@@ -19,8 +19,8 @@ export default `
     createUser(
       name: String!,
       email: String!,
-      phone: String!,
-      notification_methods: [String]!
+      phone: String,
+      password: String
     ): User
     saveListing(
       user_id: ID!,

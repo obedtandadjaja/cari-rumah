@@ -1,4 +1,5 @@
 import db from './../pg-adaptor'
+import AuthClient from './../auth/client'
 
 export const userDefaultOptions = {
   connection: db,
@@ -20,11 +21,18 @@ export class User {
   }
 
   static create(args, options=userDefaultOptions) {
-    return options.connection.one(
-      `insert into users (name, email, phone, notification_methods, credential_id)
-       values (${name}, ${email}, ${phone}, ${notification_methods}, ${credential_id}) returning id`,
-      args
-    )
+    return AuthClient.createCredential(args.email, args.password)
+      .then(res => {
+        options.connection.one(
+          'insert into users (name, email, phone, notification_methods, credential_id)\
+           values (${name}, ${email}, ${phone}, ${notification_methods}, ${credential_id}) returning id',
+          {
+            ...args,
+            notification_methods: ['email'],
+            credential_id: res.data.id
+          }
+        )
+      })
   }
 
   static saveListing(listing_id, user_id, options=userDefaultOptions) {

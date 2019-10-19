@@ -14,8 +14,7 @@ const graphQL = new ApolloServer({
     const token = req.headers.authorization || ''
 
     // try to retrieve a user with the token
-    const user = await new AuthClient()
-      .verify(token)
+    const user = await AuthClient.verify(token)
       .then(async(res) => await User.findByCredentialId(res.data.credential_id))
       .catch(err => null)
 
