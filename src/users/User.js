@@ -29,7 +29,8 @@ export class User {
 
   static saveListing(listing_id, user_id, options=userDefaultOptions) {
     return options.connection.none(
-      `update users set saved_listing_ids = saved_listing_ids || $1 where id = $2`,
+      'update users set saved_listing_ids = coalesce(saved_listing_ids, \'{}\') || $1:raw\
+      where id = $2:raw and (saved_listing_ids is null or saved_listing_ids @> ARRAY[$1:raw] = false)',
       [listing_id, user_id]
     )
   }

@@ -1,4 +1,4 @@
-import User from './User'
+import { User } from './User'
 import Listing from './../listings/Listing'
 
 export default {
@@ -9,8 +9,9 @@ export default {
   },
   Mutation: {
     createUser: async(root, args, context) => await User.create(args),
+
     saveListing: async(root, { user_id, listing_id }, context) => {
-      await User.saveListing(listing_id, user_id).then(res => true)
+      return await User.saveListing(listing_id, user_id).then(res => true)
     },
   },
   User: {
