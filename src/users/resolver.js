@@ -1,5 +1,6 @@
 import { User } from './User'
 import Listing from './../listings/Listing'
+import AuthClient from './../auth/client'
 
 export default {
   Query: {
@@ -8,7 +9,12 @@ export default {
     users: async(root, args, context) => await User.all(),
   },
   Mutation: {
-    createUser: async(root, args, context) => await User.create(args),
+    createUser: async(root, args, context) => {
+      return await AuthClient.createCredential(args.password)
+        .then(res => {
+          return User.create({ ...args, credential_id: res.data.credential_id })
+        })
+    },
 
     saveListing: async(root, { user_id, listing_id }, context) => {
       return await User.saveListing(listing_id, user_id).then(res => true)

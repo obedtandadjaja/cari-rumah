@@ -3,12 +3,11 @@ import axios from 'axios'
 class AuthClient {
   static subject = 'cari-rumah'
 
-  static token = (identifier, password) => {
+  static token = (credentialId, password) => {
     return axios.post(
       `${process.env.AUTH_SERVICE_HOST}:${process.env.AUTH_SERVICE_PORT}/token`,
       JSON.stringify({
-        subject: this.subject,
-        identifier: identifier,
+        credential_id: credentialId,
         password: password
       }),
       {
@@ -33,12 +32,10 @@ class AuthClient {
     )
   }
 
-  static createCredential = (identifier, password) => {
+  static createCredential = (password) => {
     return axios.post(
       `${process.env.AUTH_SERVICE_HOST}:${process.env.AUTH_SERVICE_PORT}/credentials`,
       JSON.stringify({
-        subject: this.subject,
-        identifier: identifier,
         password: password
       }),
       {
