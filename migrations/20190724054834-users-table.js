@@ -6,7 +6,7 @@ exports.up = (db, callback) => {
     email: { type: 'string' },
     notification_methods: { type: 'text[]', default: '{}' },
     saved_listing_ids: { type: 'int[]', default: '{}' },
-    credential_id: { type: 'int', unsigned: true },
+    credential_id: { type: 'string' },
   }, callback)
 }
 

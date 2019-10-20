@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "db-migrate up",
-    "seed": "babel-node --presets es2015 ./migrations/seed/seed.js",
+    "seed": "babel-node ./migrations/seed/seed.js",
     "start": "babel-node -r node_modules/dotenv/config server.js"
   },
   "repository": {

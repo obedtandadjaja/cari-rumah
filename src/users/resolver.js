@@ -12,7 +12,7 @@ export default {
     createUser: async(root, args, context) => {
       return await AuthClient.createCredential(args.password)
         .then(res => {
-          return User.create({ ...args, credential_id: res.data.credential_id })
+          return User.create({ ...args, credential_id: res.data.id })
         })
     },
 

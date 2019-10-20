@@ -7,7 +7,7 @@ export default `
     notification_methods: [String]
     listings: [Listing]
     saved_listings: [Listing]
-    credential_id: Int
+    credential_id: String
   }
 
   type Query {
