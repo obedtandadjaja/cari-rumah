@@ -199,8 +199,8 @@ const listingData = {
   num_stories: 1,
   year_built: 2018,
   price_idr: 2000000,
-  description: 'This is a test listing',
-  display_picture_url: 'https://images.homedepot-static.com/productImages/fc91cb23-b6db-4d32-b02a-f1ed61dd39a8/svn/folkstone-matte-formica-laminate-sheets-009271258408000-64_400_compressed.jpg',
+  description: 'Nestled in vibrant Palo Alto this tastefully updated townhouse style home in desirable location has three bedrooms and three full bathrooms. Warm and bright living room, vaulted ceilings and dining area that open to the updated kitchen with stainless steel appliances, custom cabinetry and granite stone counter-tops. Three spacious bedrooms with two master suites on the upper level with spa like full bathrooms. One bedroom on main level perfect for a guest bedroom or office. Features beautiful wood flooring, newer carpet, central heat/AC, recessed lighting, in-unit laundry, dual pane windows, and two car tandem attached garage completes this homes charm. Private front patio offering quintessential California indoor/outdoor living. Resort style community with a pool, playground and plenty of guest street parking. Minutes to Downtown, Palo Alto library, Stanford, Mountain View, top rated Palo Alto schools, parks, shopping and more while still in a quiet and peaceful location.',
+  display_picture_url: 'https://picsum.photos/200/300/',
   residential_type: 'room',
   type: 'rent',
 }
