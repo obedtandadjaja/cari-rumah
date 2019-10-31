@@ -1,5 +1,6 @@
 import { ApolloServer, gql, AuthenticationError } from 'apollo-server-express'
 import { buildSchema } from 'graphql'
+import jwtDecode from 'jwt-decode'
 import typeDefs from './../type-defs'
 import resolvers from './../resolvers'
 import AuthClient from './../auth/client'
@@ -13,12 +14,10 @@ const graphQL = new ApolloServer({
     // get the user token from the headers
     const token = req.headers.authorization || ''
 
-    // try to retrieve a user with the token
-    const user = await AuthClient.verify(token)
-      .then(async(res) => await User.findByCredentialId(res.data.credential_id))
-      .catch(err => null)
+    const jwtDecoded = jwtDecode(token)
+    const user = User.findByCredentialId(jwtDecoded.credential_id).catch(err => null)
 
-    if (!user && process.env.ENV !== 'dev') {
+    if (!user) {
       throw new AuthenticationError('Invalid JWT; Unauthorized')
     }
 
